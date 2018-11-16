@@ -11,7 +11,7 @@
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://118.24.103.75:3306/${db}?useUnicode=true&amp;characterEncoding=utf8"
+                connectionURL="jdbc:mysql://xxx/${db}?useUnicode=true&amp;characterEncoding=utf8"
                 userId="${userId}"
                 password="${password}">
         </jdbcConnection>
