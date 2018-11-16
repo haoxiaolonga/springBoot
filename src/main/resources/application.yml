@@ -1,57 +1,58 @@
 spring:
   datasource:
-    # Èç¹û´æÔÚ¶à¸öÊı¾İÔ´£¬¼à¿ØµÄÊ±ºò¿ÉÒÔÍ¨¹ıÃû×ÖÀ´Çø·Ö¿ªÀ´
+    #å¦‚æœå­˜åœ¨å¤šä¸ªæ•°æ®æºï¼Œç›‘æ§çš„æ—¶å€™å¯ä»¥é€šè¿‡åå­—æ¥åŒºåˆ†å¼€æ¥
     name: mysql
-    # Á¬½ÓÊı¾İ¿âµÄurl
+    #è¿æ¥æ•°æ®åº“çš„url
     url: jdbc:mysql://118.24.103.75:3306/small?useUnicode=true&characterEncoding=utf8
-    # Á¬½ÓÊı¾İ¿âµÄÕËºÅ
+    # è¿æ¥æ•°æ®åº“çš„è´¦å·
     username: root
-    #  Á¬½ÓÊı¾İ¿âµÄÃÜÂë
+    #  è¿æ¥æ•°æ®åº“çš„å¯†ç 
     password: 123456
-    # Ê¹ÓÃdruidÊı¾İÔ´
+    # ä½¿ç”¨druidæ•°æ®æº
     type: com.alibaba.druid.pool.DruidDataSource
-    # À©Õ¹²å¼ş
-    # ¼à¿ØÍ³¼ÆÓÃµÄfilter:stat ÈÕÖ¾ÓÃµÄfilter:log4j ·ÀÓùsql×¢ÈëµÄfilter:wall
+    # æ‰©å±•æ’ä»¶
+    # ç›‘æ§ç»Ÿè®¡ç”¨çš„filter:stat æ—¥å¿—ç”¨çš„filter:log4j é˜²å¾¡sqlæ³¨å…¥çš„filter:wall
     filters: stat
-    # ×î´óÁ¬½Ó³ØÊıÁ¿
+    # æœ€å¤§è¿æ¥æ± æ•°é‡
     maxActive: 20
-    # ³õÊ¼»¯Ê±½¨Á¢ÎïÀíÁ¬½ÓµÄ¸öÊı¡£³õÊ¼»¯·¢ÉúÔÚÏÔÊ¾µ÷ÓÃinit·½·¨£¬»òÕßµÚÒ»´ÎgetConnectionÊ±
+    # åˆå§‹åŒ–æ—¶å»ºç«‹ç‰©ç†è¿æ¥çš„ä¸ªæ•°ã€‚åˆå§‹åŒ–å‘ç”Ÿåœ¨æ˜¾ç¤ºè°ƒç”¨initæ–¹æ³•ï¼Œæˆ–è€…ç¬¬ä¸€æ¬¡getConnectionæ—¶
     initialSize: 1
-    # »ñÈ¡Á¬½ÓÊ±×î´óµÈ´ıÊ±¼ä£¬µ¥Î»ºÁÃë
+    # è·å–è¿æ¥æ—¶æœ€å¤§ç­‰å¾…æ—¶é—´ï¼Œå•ä½æ¯«ç§’
     maxWait: 60000
-    # ×îĞ¡Á¬½Ó³ØÊıÁ¿
+    # æœ€å°è¿æ¥æ± æ•°é‡
     minIdle: 1
     timeBetweenEvictionRunsMillis: 60000
-    # Á¬½Ó±£³Ö¿ÕÏĞ¶ø²»±»ÇıÖğµÄ×î³¤Ê±¼ä
+    # è¿æ¥ä¿æŒç©ºé—²è€Œä¸è¢«é©±é€çš„æœ€é•¿æ—¶é—´
     minEvictableIdleTimeMillis: 300000
-    # ÓÃÀ´¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§µÄsql£¬ÒªÇóÊÇÒ»¸ö²éÑ¯Óï¾ä
-    # Èç¹ûvalidationQueryÎªnull£¬testOnBorrow¡¢testOnReturn¡¢testWhileIdle¶¼²»»áÆä×÷ÓÃ
+    # ç”¨æ¥æ£€æµ‹è¿æ¥æ˜¯å¦æœ‰æ•ˆçš„sqlï¼Œè¦æ±‚æ˜¯ä¸€ä¸ªæŸ¥è¯¢è¯­å¥
+    # å¦‚æœvalidationQueryä¸ºnullï¼ŒtestOnBorrowã€testOnReturnã€testWhileIdleéƒ½ä¸ä¼šå…¶ä½œç”¨
     validationQuery: select count(1) from 'table'
-    # ÉêÇëÁ¬½ÓµÄÊ±ºò¼ì²â£¬Èç¹û¿ÕÏĞÊ±¼ä´óÓÚtimeBetweenEvictionRunsMillis£¬Ö´ĞĞvalidationQuery¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§
+    # ç”³è¯·è¿æ¥çš„æ—¶å€™æ£€æµ‹ï¼Œå¦‚æœç©ºé—²æ—¶é—´å¤§äºtimeBetweenEvictionRunsMillisï¼Œæ‰§è¡ŒvalidationQueryæ£€æµ‹è¿æ¥æ˜¯å¦æœ‰æ•ˆ
     testWhileIdle: true
-    # ÉêÇëÁ¬½ÓÊ±Ö´ĞĞvalidationQuery¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§£¬×öÁËÕâ¸öÅäÖÃ»á½µµÍĞÔÄÜ
+    # ç”³è¯·è¿æ¥æ—¶æ‰§è¡ŒvalidationQueryæ£€æµ‹è¿æ¥æ˜¯å¦æœ‰æ•ˆï¼Œåšäº†è¿™ä¸ªé…ç½®ä¼šé™ä½æ€§èƒ½
     testOnBorrow: false
-    # ¹é»¹Á¬½ÓÊ±Ö´ĞĞvalidationQuery¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§£¬×öÁËÕâ¸öÅäÖÃ»á½µµÍĞÔÄÜ
+    # å½’è¿˜è¿æ¥æ—¶æ‰§è¡ŒvalidationQueryæ£€æµ‹è¿æ¥æ˜¯å¦æœ‰æ•ˆï¼Œåšäº†è¿™ä¸ªé…ç½®ä¼šé™ä½æ€§èƒ½
     testOnReturn: false
-    # ÊÇ·ñ»º´æpreparedStatement£¬¼´PSCache
+    # æ˜¯å¦ç¼“å­˜preparedStatementï¼Œå³PSCache
     poolPreparedStatements: false
-    # ÒªÆôÓÃPSCache£¬±ØĞëÅäÖÃ´óÓÚ0£¬µ±´óÓÚ0Ê±£¬poolPreparedStatements×Ô¶¯´¥·¢ĞŞ¸ÄÎªtrue
+    # è¦å¯ç”¨PSCacheï¼Œå¿…é¡»é…ç½®å¤§äº0ï¼Œå½“å¤§äº0æ—¶ï¼ŒpoolPreparedStatementsè‡ªåŠ¨è§¦å‘ä¿®æ”¹ä¸ºtrue
     maxOpenPreparedStatements: -1
 
-# pagehelper·ÖÒ³²å¼ş
+# pagehelperåˆ†é¡µæ’ä»¶
 pagehelper:
-  # Êı¾İ¿âµÄ·½ÑÔ
+  # æ•°æ®åº“çš„æ–¹è¨€
   helperDialect: mysql
-  # ÆôÓÃºÏÀí»¯£¬Èç¹ûpageNum < 1»á²éÑ¯µÚÒ»Ò³£¬Èç¹ûpageNum > pages»á²éÑ¯×îºóÒ»Ò³
+  # å¯ç”¨åˆç†åŒ–ï¼Œå¦‚æœpageNum < 1ä¼šæŸ¥è¯¢ç¬¬ä¸€é¡µï¼Œå¦‚æœpageNum > pagesä¼šæŸ¥è¯¢æœ€åä¸€é¡µ
   reasonable: true
 
 mybatis:
-  # mapper.xml°üµØÖ·
+  # mapper.xmlåŒ…åœ°å€
   mapper-locations: classpath:mapper/*.xml
-  # pojoÉú³É°üµØÖ·
+  # pojoç”ŸæˆåŒ…åœ°å€
   type-aliases-package: com.spring.demo.springbootexample.mybatis.po
-#
-#server£º
-#  port£º 12345
+
+#ç«¯å£é»˜è®¤
+server:
+  port: 8080
 
 
