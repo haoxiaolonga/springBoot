@@ -63,7 +63,8 @@
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="consoleLog"/>
-            <appender-ref ref="fileLog"/>
+            <!--  是否写入文件  -->
+            <!--<appender-ref ref="fileLog"/>-->
         </root>
         <!--
             additivity是子Logger 是否继承 父Logger 的 输出源（appender） 的标志位
