@@ -37,3 +37,12 @@ spring:
     poolPreparedStatements: false
     # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true
     maxOpenPreparedStatements: -1
+
+#日志文件配置
+resources:
+  # log文件写入地址
+  logdir: logs/
+  # 应用名称
+  appname: spring-boot-example
+  # 日志打印的基础扫描包
+  basepackage: com.spring.demo.springbootexample
