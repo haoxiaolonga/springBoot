@@ -2,6 +2,7 @@ package com.spring.demo.springbootexample.controller;
 
 import com.spring.demo.springbootexample.mybatis.mapper.TestMapper;
 import com.spring.demo.springbootexample.mybatis.po.Test;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * creat_time: 14:57
  **/
 @Controller
+@Api(value = "TestController", tags = {"restful api示例"})
 public class TestController {
 
     //替换成自己生成的mapper
