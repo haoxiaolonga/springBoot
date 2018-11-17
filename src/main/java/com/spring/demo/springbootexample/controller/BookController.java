@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@Api(tags = "BookController", description = "BookController | 通过书来测试swagger")
+@Api(tags = "图书控制器", description = "BookController")
 @RequestMapping(value = "/books")
 public class BookController {
 

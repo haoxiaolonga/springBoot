@@ -21,13 +21,13 @@ public class SwaggerConfig {
     // 具体的描述
     private final String description = "API文档自动生成示例";
     // 服务说明url
-    private final String termsOfServiceUrl = "http://www.kingeid.com";
+    private final String termsOfServiceUrl = "http://www.baidu.com";
     // licence
-    private final String license = "MIT";
+    private final String license = "xxx";
     // licnce url
-    private final String licenseUrl = "https://mit-license.org/";
+    private final String licenseUrl = "xxxx";
     // 接口作者联系方式
-    private final  Contact contact = new Contact("calebman", "https://github.com/calebman", "chenjianhui0428@gmail.com");
+    private final  Contact contact = new Contact("xxx", "https://github.com/xxx", "xxx@gmail.com");
 
     @Bean
     public Docket buildDocket() {
