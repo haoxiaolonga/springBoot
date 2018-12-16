@@ -1,57 +1,307 @@
-
+<!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title> 自由健测试环境 - 正式环境前添加test </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+<!--     <meta http-equiv="Cache-Control" content="no-siteapp" /> -->
+    <title>JFree自由健管理平台</title>
+
+    <meta name="keywords" content="JFree自由健管理平台 ">
+    <meta name="description" content="JFree自由健管理平台 ">
+
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/style.min.css?v=5.0.0" rel="stylesheet">
+    
 </head>
-<style type="text/css">
-    body{
-        /*text-align:center;	*/
-        font-family: 宋体;
-        font-size: 24px;
-        /*font*/
-    }
-    div{
-        margin: 0 auto;
-    }
 
-    a:link {color: #000000}		/* 未访问的链接 */
-    a:visited {color: #000000}	/* 已访问的链接 */
-    a:hover {color: #000000}	/* 鼠标移动到链接上 */
-    a:active {color: #000000}
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element" style="text-align: center;">
+                            <span><img alt="image" class="img-circle" src="/img/logo.jpg" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                               <span class="block m-t-xs"><strong class="font-bold" id="usermobilephone"></strong></span>
+                                <span class="text-muted text-xs block"><span id='usernamespan'></span><b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            	<li><a class="J_menuItem" href="center/upPwd.html">修改个人密码</a>
+                                </li>
+                                <li><a class="J_menuItem" href="profile.html">个人资料</a>
+                                </li> 
+                                <li><a class="J_menuItem" href="contacts.html">联系我们</a>
+                                </li>
+                                <li><a class="J_menuItem" href="mailbox.html">信箱</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:void()" onclick="logout()">安全退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">JFree
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                            <div class="form-group">
+                                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown hidden-xs">
+                            <a class="right-sidebar-toggle" aria-expanded="false">
+                                <i class="fa fa-tasks"></i> 主题
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="row content-tabs">
+                <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
+                </button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="index_v3.html">首页</a>
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
+                </button>
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
 
-    a {
-        text-decoration : none;
-    }
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a onclick="logout()" href="javascript:void()" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%"  frameborder="0" data-id="index_v3.html" seamless></iframe>
+            </div><!-- src="index_v3.html?v=5.0" -->
+            <div class="footer">
+                <div class="pull-right">&copy; 2018 <a href="#" target="_blank">JFree</a>
+                </div>
+            </div>
+        </div>
+        <!--右侧部分结束-->
+        <!--右侧边栏开始-->
+        <div id="right-sidebar">
+            <div class="sidebar-container">
 
-    li {
-        margin: 5px auto;
-    }
+                <ul class="nav nav-tabs navs-3">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab-1">
+                            <i class="fa fa-gear"></i> 主题
+                        </a>
+                    </li>
+                </ul>
 
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="sidebar-title">
+<!--                             <h3> <i class="fa fa-comments-o"></i> 主题设置</h3> -->
+                            <small><i class="fa fa-tim"></i> 你可以从这里选择和预览主题的布局和样式，这些设置会被保存在本地，下次打开的时候会直接应用这些设置。</small>
+                        </div>
+                        <div class="skin-setttings">
+                            <div class="title">主题设置</div>
+                            <div class="setings-item">
+                                <span>收起左侧菜单</span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                        <label class="onoffswitch-label" for="collapsemenu">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                <span>固定顶部</span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                        <label class="onoffswitch-label" for="fixednavbar">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                <span>
+                        固定宽度
+                    </span>
 
-</style>
-
-<body>
-
-<ol>
-    <li> <a href="https://api.cdhryx.com/doc.html" target="_blank">线上API</a></li>
-    <li> <a href="http://admin.cdhryx.com" target="_blank">线上后端平台</a></li>
-    <li> <a href="https://test-api.cdhryx.com/doc.html"  target="_blank">测试API</a></li>
-    <li> <a href="http://test-admin.cdhryx.com" target="_blank">测试后端平台</a></li>
-    <li> <a href="http://test-elk.cdhryx.com/app/kibana" target="_blank">测试日志</a></li>
-
-</ol>
-
-<ol>
-    <li> <a href="http://wz-admin.cdhryx.com/index.html" target="_blank">温州后端平台</a></li>
-
-    <li> <a href="http://device-api.cdhryx.com/swagger-ui.html#/sark-api-controller/operatorUsingPOST" target="_blank">储物柜开门</a></li>
-
-    <li> <a href="http://get.haoguizi.com/admin" target="_blank">柜子管理</a>：账号ziyoujian,密码：123</li>
-</ol>
-
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                        <label class="onoffswitch-label" for="boxedlayout">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="title">皮肤选择</div>
+                            <div class="setings-item default-skin nb">
+                                <span class="skin-name ">
+                         <a href="#" class="s-skin-0">
+                             默认皮肤
+                         </a>
+                    </span>
+                            </div>
+                            <div class="setings-item blue-skin nb">
+                                <span class="skin-name ">
+                        <a href="#" class="s-skin-1">
+                            蓝色主题
+                        </a>
+                    </span>
+                            </div>
+                            <div class="setings-item yellow-skin nb">
+                                <span class="skin-name ">
+                        <a href="#" class="s-skin-3">
+                            黄色/紫色主题
+                        </a>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/js/plugins/layer/layer.min.js"></script>
+    <script src="/js/hplus.min.js?v=5.0.0"></script>
+    <script src="/js/contabs.min.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+   	<script src="/common/petecat.js?v=1.0.0"></script>
+   	<script type="text/javascript">
+   	   if(window.top!=window.self){
+   		   window.top.location.href='/index.html';
+   	   }
+    	var user = getSessionUser();
+    	if(user == null){
+    		window.location.href='/login.html';
+    	}
+    	$("#usermobilephone").text(user.mobilephone);
+    	$("#usernamespan").text(user.username);
+    	//组装菜单
+    	//获取权限
+    	var powers = getUserPower();
+    	if(powers !=null && powers.length>0){
+    		for(var i=0;i<powers.length;i++){
+    			var power = powers[i];
+    			if(power.parentid=='TOP'){//顶级目录
+    			   var html = $.trim(getTopMenuHtml(power,powers));
+    			   if(html!=''){
+    				 $("#side-menu").append(html);
+    			   }
+    			}
+    		}
+    	}
+    	function logout(){
+    		clearSession();
+    		window.location.href='/login.html';
+    	}
+    	
+    	function getTopMenuHtml(power,powers){
+    		var html = "";
+    		if(power.botflag=='1'
+    				&& checkAddMenu(power,powers)){//是菜单并且有显示权限
+    			  html+='<li>';
+    			  html+=' <a href="#"> ';
+                  html+=' <i class="fa fa"></i> ';
+                  html+=' <span class="nav-label">'+power.fundesc+'</span> ';
+                  html+=' <span class="fa arrow"></span> ';
+                  html+=' </a> ';
+    			  html+=getMenuHtml(power,powers);
+    			  html+='</li>';
+    		}
+    		return html;
+    	}
+    	
+    	function getMenuHtml(power,powers){
+    		var flag = false;
+    	    var html='<ul class="nav nav-second-level">';
+    	    for(var i=0;i<powers.length;i++){
+    	    	var t = powers[i];
+    	    	if(t.botflag=='1' 
+    	    	    && t.parentid==power.funid
+    				&& checkAddMenu(t,powers)){
+        			flag = true;
+        			html+='<li>';
+        			if($.trim(t.funpath)!=''){
+        				html+='<a class="J_menuItem" href="'+t.funpath+'">'+t.fundesc+'</a>';
+        			}else{
+        				html+='<a class="J_menuItem" href="javascript:void()">'+t.fundesc+'</a>';
+        			}
+        			html+='</li>';
+                  
+        		}
+    	    }
+    	    html+="</ul>";
+    	    if(!flag){
+    	    	html='';
+    	    }
+    	    return html;
+    	}
+    	
+    	function checkAddMenu(power,powers){
+    		var flag = false; 
+    		for(var i=0;i<powers.length;i++){
+    			var t = powers[i];
+    			if(power.funid==t.parentid){
+					if(t.botflag=='0'){
+						if(t.displayfun='1'){
+							flag = true;
+						}
+					}else{
+						flag = checkAddMenu(t,powers);
+					}
+    			}
+    			if(flag){
+    				break;
+    			}
+    		}
+    		return flag;
+    	}
+   	</script>
 </body>
-
-
 </html>
