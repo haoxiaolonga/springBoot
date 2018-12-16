@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录~</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+</head>
+<!-- CSS Start -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link href="/css/animate.min.css" rel="stylesheet">
+<link href="/css/style.min.css" rel="stylesheet">
+<link href="/css/login.min.css" rel="stylesheet">
+<link href="/login/css/reset.css" rel="stylesheet">
+<link href="/login/css/supersized.css" rel="stylesheet">
+<link href="/login/css/style.css" rel="stylesheet">
+<!-- CSS End -->
+<body>
+
+	<div class="page-container">
+	<span style="font-size: 60px;font-weight: 100;letter-spacing:30px;line-height: 90px;display: block;">JFree</span>
+	<span style="font-size: 30px;font-weight: 100;letter-spacing:20px;line-height: 60px;display: block;">欢迎使用自由健管理平台</span>
+	<span style="font-size: 26px;font-weight: 100;letter-spacing:10px;line-height: 60px;display: block;">●专业教程  ●高端设备 ●细致服务</span>
+		<form onclick="return false;">
+			<input type="text" id="mobilephone" name="username" value="13348828865" class="username" placeholder="手机号">
+			<input type="password" id="password" name="password" value="123456" class="password"
+				placeholder="密码">
+			<button id="loginBtn" >登录</button>
+			<div class="error">
+				<span>+</span>
+			</div>
+		</form>
+	</div>
+	<div class="sucainiu-footer">
+		<div style="border-top:1px solid #ffffff;width:60%;margin:0 auto;text-align: center;">
+			<p>
+			© 2018 All Rights Reserved. JFree
+			</p>
+		</div>
+	</div>
+</body>
+<!-- Javascript -->
+<script src="/js/jquery.min.js"></script>
+<script src="/login/js/supersized.3.2.7.min.js"></script>
+<script src="/login/js/supersized-init.js"></script>
+<script src="/login/js/scripts.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<script src="/common/petecat.js?v=1.0.0"></script>
+<script src="/js/plugins/layer-pc/layer.js"></script>
+<script>
+	if (window.top !== window.self) {
+		window.top.location = window.location
+	};
+</script>
+<script type="text/javascript">
+	$(function() {
+		$('#loginBtn').click(
+						function() {
+							var req = {
+								useToken : false
+							};
+							req['reqJSON'] = {
+								url : SSO_URL + 'sy/sysuser/loginUsePwd',
+								type : 'get',
+								data : {
+									mobilephone : $("#mobilephone").val(),
+									password : $("#password").val()
+								}
+							};
+							req['successFn'] = function(respData) {
+								if (respData.code == SUCCESS_CODE) {
+									storeSessionData('user', JSON.stringify(respData.data));
+									storeSessionData('userToken',respData.data.token);
+									//开始加载权限信息
+									var reqInner = {
+										useToken : true
+									};
+									reqInner['reqJSON'] = {
+										url : SSO_URL + 'sy/sysuserrole/queryUserFunForLogin',
+										type : 'get'
+									};
+									reqInner['successFn'] = function(respInnerData) {
+										if (respInnerData.code == SUCCESS_CODE) {
+											storeSessionData('userPower',JSON.stringify(respInnerData.data));
+											window.location.href = 'index.html';
+										}else{
+											layer.msg(respInnerData.message,{},function() {
+												
+											});
+										}
+									}
+									ajaxRequest(reqInner);
+
+								} else {
+									layer.msg(respData.message,{});
+								}
+							};
+							ajaxRequest(req);
+						});
+	});
+</script>
+</html>
