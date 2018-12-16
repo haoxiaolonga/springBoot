@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysfunvisturl.service.impl;
+package com.spring.demo.springbootexample.sso.sysfunvisturl.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,7 +89,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: insertPowers</p>   
 	 * <p>Description: </p>   
 	 * @param dtos   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#insertPowers(java.util.List)   
+	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#insertPowers(List)
 	 */  
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -118,7 +118,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Description: </p>   
 	 * @param funid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#queryFunVist(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#queryFunVist(String)
 	 */  
 	@Override
 	public List<SyChanmgfunVistUrlmQryDTO> queryFunVist(String funid) {
@@ -148,7 +148,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: afterPropertiesSet</p>   
 	 * <p>Description: </p>   
 	 * @throws Exception   
-	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()   
+	 * @see InitializingBean#afterPropertiesSet()
 	 */  
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -159,7 +159,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: setVistUrlPower</p>   
 	 * <p>Description: </p>   
 	 * @param userid   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#setVistUrlPower(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#setVistUrlPower(String)
 	 */  
 	@Override
 	public void setVistUrlPower(String userid) {
@@ -204,7 +204,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: setUserVistPowerByRolesAsync</p>   
 	 * <p>Description: </p>   
 	 * @param roles   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#setUserVistPowerByRolesAsync(java.util.List)   
+	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#setUserVistPowerByRolesAsync(List)
 	 */  
 	@Async
 	@Override
@@ -227,7 +227,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * @param userId
 	 * @param delete
 	 * @param reqNo   
-	 * @see com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#deleteByFunsIds(java.util.List, java.lang.String, java.lang.String, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#deleteByFunsIds(List, String, String, String)
 	 */ 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -246,7 +246,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: reloadVistUrl</p>   
 	 * <p>Description: </p>   
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#reloadVistUrl(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#reloadVistUrl(String)
 	 */  
 	@Override
 	public void reloadVistUrl(String userId) {

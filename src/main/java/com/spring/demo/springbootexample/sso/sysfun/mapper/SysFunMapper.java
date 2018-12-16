@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysfun.mapper;
+package com.spring.demo.springbootexample.sso.sysfun.mapper;
 
 import java.util.List;
 

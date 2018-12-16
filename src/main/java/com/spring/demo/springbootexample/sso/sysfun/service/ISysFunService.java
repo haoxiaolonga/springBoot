@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysfun.service;
+package com.spring.demo.springbootexample.sso.sysfun.service;
 
 import java.util.List;
 

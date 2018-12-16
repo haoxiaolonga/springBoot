@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysrolefun.service.impl;
+package com.spring.demo.springbootexample.sso.sysrolefun.service.impl;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -46,7 +46,7 @@ public class SysRoleFunServiceImpl extends BaseServiceImpl<SysRoleFun, String> i
 	 * <p>Description: </p>   
 	 * @param sysRoleFunAddDTO
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#saveRoleFun(com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunAddDTO, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#saveRoleFun(com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunAddDTO, String)
 	 */  
     @Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -81,7 +81,7 @@ public class SysRoleFunServiceImpl extends BaseServiceImpl<SysRoleFun, String> i
 	 * <p>Description: </p>   
 	 * @param roleid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#queryRoleFunTree(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#queryRoleFunTree(String)
 	 */  
 	@Override
 	public List<SysRoleFunTreeDTO> queryRoleFunTree(String roleid) {
@@ -93,7 +93,7 @@ public class SysRoleFunServiceImpl extends BaseServiceImpl<SysRoleFun, String> i
 	 * <p>Description: </p>   
 	 * @param roleid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#queryRoleFun(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#queryRoleFun(String)
 	 */  
 	@Override
 	public List<SysRoleFunDTO> queryRoleFun(String roleid) {
@@ -105,7 +105,7 @@ public class SysRoleFunServiceImpl extends BaseServiceImpl<SysRoleFun, String> i
 	 * <p>Description: </p>   
 	 * @param roleid
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#deleteRoleFunByRole(java.lang.String, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#deleteRoleFunByRole(String, String)
 	 */  
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -124,7 +124,7 @@ public class SysRoleFunServiceImpl extends BaseServiceImpl<SysRoleFun, String> i
 	 * <p>Title: deleteRoleFunByFuns</p>   
 	 * <p>Description: </p>   
 	 * @param ids   
-	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#deleteRoleFunByFuns(java.util.List)   
+	 * @see com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService#deleteRoleFunByFuns(List)
 	 */  
 	@Override
 	public void deleteRoleFunByFuns(List<String> ids,String userId) {

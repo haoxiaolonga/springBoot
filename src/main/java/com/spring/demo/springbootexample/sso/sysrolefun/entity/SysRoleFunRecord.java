@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysrolefun.entity;
+package com.spring.demo.springbootexample.sso.sysrolefun.entity;
 
 import java.io.Serializable;
 import java.util.Date;

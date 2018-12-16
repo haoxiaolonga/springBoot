@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuserrole.service;
+package com.spring.demo.springbootexample.sso.sysuserrole.service;
 
 import java.util.List;
 

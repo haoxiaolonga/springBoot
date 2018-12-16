@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuserrole.service.impl;
+package com.spring.demo.springbootexample.sso.sysuserrole.service.impl;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -55,7 +55,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param sysUserRoleAddDTO
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#saveUserRole(com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleAddDTO, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#saveUserRole(com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleAddDTO, String)
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -87,7 +87,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param userid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserRole(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserRole(String)
 	 */  
 	@Override
 	public List<SysUserRoleDTO> queryUserRole(String userid) {
@@ -99,7 +99,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param userid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserFun(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserFun(String)
 	 */  
 	@Override
 	public List<SysUserFunDTO> queryUserFun(String userid) {
@@ -111,7 +111,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param userid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserRoleCheck(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserRoleCheck(String)
 	 */  
 	@Override
 	public List<SysUserRoleCheckDTO> queryUserRoleCheck(String userid) {
@@ -123,7 +123,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param roleid
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#sysUserRoleService(java.lang.String, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#sysUserRoleService(String, String)
 	 */  
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -142,7 +142,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Title: setUserRoleToCache</p>   
 	 * <p>Description: </p>   
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#setUserRoleToCache(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#setUserRoleToCache(String)
 	 */  
 	@Override
 	public void setUserRoleToCache(String userId) {

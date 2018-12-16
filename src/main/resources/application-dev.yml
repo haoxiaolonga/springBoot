@@ -3,7 +3,7 @@ spring:
     #如果存在多个数据源，监控的时候可以通过名字来区分开来
     name: mysql
     #连接数据库的url
-    url: jdbc:mysql://118.24.103.75:3306/smal?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://118.24.103.75:3306/dy?useUnicode=true&characterEncoding=utf8
     # 连接数据库的账号
     username: root
     #  连接数据库的密码

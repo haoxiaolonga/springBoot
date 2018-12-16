@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysfunvisturl.service;
+package com.spring.demo.springbootexample.sso.sysfunvisturl.service;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public interface ISyChanmgfunVistUrlService extends BaseService<SyChanmgfunVistU
 	 * @param dtos
 	 * @return void     
 	 */
-	void insertPowersUrl(List<SyChanmgfunVistUrlmAddDTO> dtos, String userId,String seqno);
+	void insertPowersUrl(List<SyChanmgfunVistUrlmAddDTO> dtos, String userId, String seqno);
 
 	/**   
 	 * @Title: insertHByAuth   

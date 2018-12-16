@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuser.controller;
+package com.spring.demo.springbootexample.sso.sysuser.controller;
 
 import java.util.Arrays;
 import java.util.List;

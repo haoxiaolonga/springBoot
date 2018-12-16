@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuser.service;
+package com.spring.demo.springbootexample.sso.sysuser.service;
 
 import java.util.List;
 

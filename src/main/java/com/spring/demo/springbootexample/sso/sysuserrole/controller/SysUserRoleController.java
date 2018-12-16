@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuserrole.controller;
+package com.spring.demo.springbootexample.sso.sysuserrole.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;

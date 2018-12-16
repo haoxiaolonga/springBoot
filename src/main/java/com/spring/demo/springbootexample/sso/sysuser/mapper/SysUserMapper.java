@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuser.mapper;
+package com.spring.demo.springbootexample.sso.sysuser.mapper;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuserrole.mapper;
+package com.spring.demo.springbootexample.sso.sysuserrole.mapper;
 
 import java.util.List;
 

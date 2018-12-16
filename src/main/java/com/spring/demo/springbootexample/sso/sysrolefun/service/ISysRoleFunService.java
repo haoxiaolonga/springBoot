@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysrolefun.service;
+package com.spring.demo.springbootexample.sso.sysrolefun.service;
 
 import java.util.List;
 
@@ -57,6 +57,6 @@ public interface ISysRoleFunService extends BaseService<SysRoleFun, String>{
 	 * @param ids
 	 * @return void     
 	 */
-	void deleteRoleFunByFuns(List<String> ids,String userId);
+	void deleteRoleFunByFuns(List<String> ids, String userId);
 
 }

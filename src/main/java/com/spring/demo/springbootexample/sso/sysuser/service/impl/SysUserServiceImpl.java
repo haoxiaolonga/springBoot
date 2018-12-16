@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuser.service.impl;
+package com.spring.demo.springbootexample.sso.sysuser.service.impl;
 
 import java.util.Date;
 import java.util.List;
@@ -346,7 +346,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	 * <p>Description: </p>   
 	 * @param mobilephone
 	 * @param password
-	 * @see com.petecat.interchan.sso.sysuser.service.ISysUserService#loginUsePwd(java.lang.String, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysuser.service.ISysUserService#loginUsePwd(String, String)
 	 */  
 	@Override
 	public LoginSysUserDTO loginUsePwd(String mobilephone, String password) {
@@ -535,7 +535,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	 * <p>Description: </p>   
 	 * @param userIds
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuser.service.ISysUserService#findByUserIds(java.util.List)   
+	 * @see com.petecat.interchan.sso.sysuser.service.ISysUserService#findByUserIds(List)
 	 */  
 	@Override
 	public List<SysUser> findByUserIds(List<String> userIds) {

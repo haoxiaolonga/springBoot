@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.util;
+package com.spring.demo.springbootexample.sso.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

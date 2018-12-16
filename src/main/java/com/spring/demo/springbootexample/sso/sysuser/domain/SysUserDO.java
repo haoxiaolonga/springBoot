@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysuser.domain;
+package com.spring.demo.springbootexample.sso.sysuser.domain;
 
 import java.io.Serializable;
 import java.util.Date;

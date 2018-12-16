@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysfunvisturl.entity;
+package com.spring.demo.springbootexample.sso.sysfunvisturl.entity;
 
 import java.io.Serializable;
 import java.util.Date;

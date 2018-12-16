@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysfunvisturl.mapper;
+package com.spring.demo.springbootexample.sso.sysfunvisturl.mapper;
 
 import java.util.List;
 
@@ -53,7 +53,7 @@ public interface SyChanmgfunVistUrlmMapper extends BaseMapper<SyChanmgfunVistUrl
 	 * @param checkUrl
 	 * @return boolean     
 	 */
-	boolean checkUrlPower(@Param("userId") String userId,@Param("checkUrl")  String checkUrl);
+	boolean checkUrlPower(@Param("userId") String userId, @Param("checkUrl") String checkUrl);
     
 	List<SyChanmgfunVistUrlm>  getUserUrlPower(String userId);
 

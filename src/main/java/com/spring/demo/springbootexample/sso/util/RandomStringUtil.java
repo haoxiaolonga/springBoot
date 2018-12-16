@@ -1,5 +1,5 @@
 
-package com.petecat.interchan.sso.util;
+package com.spring.demo.springbootexample.sso.util;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;

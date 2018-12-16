@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysfun.service.impl;
+package com.spring.demo.springbootexample.sso.sysfun.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,7 +74,7 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 	 * @param sysFunAddDTO
 	 * @param userId
 	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#saveFun(com.petecat.interchan.protocol.sso.sysfun.SysFunAddDTO,
-	 *      java.lang.String)
+	 *      String)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
@@ -141,7 +141,7 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 	 * @param sysFunAddDTO
 	 * @param userId
 	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#saveFun(com.petecat.interchan.protocol.sso.sysfun.SysFunAddDTO,
-	 *      java.lang.String)
+	 *      String)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
@@ -267,7 +267,7 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 	 * </p>
 	 * 
 	 * @param funid
-	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#deleteFun(java.lang.String)
+	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#deleteFun(String)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override

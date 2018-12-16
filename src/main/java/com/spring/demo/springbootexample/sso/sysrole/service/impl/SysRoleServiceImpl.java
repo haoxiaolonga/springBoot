@@ -1,4 +1,4 @@
-package com.petecat.interchan.sso.sysrole.service.impl;
+package com.spring.demo.springbootexample.sso.sysrole.service.impl;
 
 import java.util.Date;
 import java.util.List;
@@ -63,7 +63,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Description: </p>   
 	 * @param sysRoleAddDTO
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#saveRole(com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#saveRole(com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO, String)
 	 */ 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -92,7 +92,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Description: </p>   
 	 * @param sysRoleAddDTO
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#saveRole(com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO, java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#saveRole(com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO, String)
 	 */ 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -165,7 +165,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Title: deleteRole</p>   
 	 * <p>Description: </p>   
 	 * @param roleid   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#deleteRole(java.lang.String)   
+	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#deleteRole(String)
 	 */  
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -204,7 +204,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Description: </p>   
 	 * @param roleIds
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#findByRoleIds(java.util.List)   
+	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#findByRoleIds(List)
 	 */  
 	@Override
 	public List<SysRole> findByRoleIds(List<String> roleIds) {
