@@ -2,7 +2,11 @@ spring:
   profiles:
     # 默认使用开发环境
     active: dev
-
+  mvc:
+    view:
+      # 默认静态页面(resources/static/)
+      prefix: /
+      suffix: .html
 # pagehelper分页插件
 pagehelper:
   # 数据库的方言
@@ -19,6 +23,5 @@ mybatis:
 #端口默认
 server:
   port: 8080
-
 
 

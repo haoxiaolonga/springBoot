@@ -17,17 +17,17 @@ public class SwaggerConfig {
     // 接口版本号
     private final String version = "1.0";
     // 接口大标题
-    private final String title = "SpringBoot示例工程";
+    private final String title = "SpringBoot";
     // 具体的描述
-    private final String description = "API文档自动生成示例";
+    private final String description = "API文档";
     // 服务说明url
     private final String termsOfServiceUrl = "http://www.baidu.com";
     // licence
-    private final String license = "xxx";
+    private final String license = "";
     // licnce url
-    private final String licenseUrl = "xxxx";
+    private final String licenseUrl = "";
     // 接口作者联系方式
-    private final  Contact contact = new Contact("xxx", "https://github.com/xxx", "xxx@gmail.com");
+    private final  Contact contact = new Contact("", "", "");
 
     @Bean
     public Docket buildDocket() {
