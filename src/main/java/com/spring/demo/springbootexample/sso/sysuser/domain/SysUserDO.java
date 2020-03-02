@@ -3,8 +3,6 @@ package com.spring.demo.springbootexample.sso.sysuser.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.petecat.interchan.core.entity.BaseEntity;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class SysUserDO extends BaseEntity implements Serializable{
+public class SysUserDO implements Serializable{
 
 	/**
      * sy_chanmguserm

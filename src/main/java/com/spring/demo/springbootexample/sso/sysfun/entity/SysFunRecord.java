@@ -8,7 +8,7 @@ import com.petecat.interchan.core.entity.BaseEntity;
 import lombok.Data;
 
 @Data
-public class SysFunRecord extends BaseEntity implements Serializable {
+public class SysFunRecord implements Serializable {
     /**
      * 功能代号
      */

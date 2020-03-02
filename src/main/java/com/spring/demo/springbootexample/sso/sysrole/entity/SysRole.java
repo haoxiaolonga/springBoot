@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SysRole extends BaseEntity implements Serializable {
+public class SysRole implements Serializable {
     /**
      * 角色代号
      */

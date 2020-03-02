@@ -8,7 +8,7 @@ import com.petecat.interchan.core.entity.BaseEntity;
 import lombok.Data;
 
 @Data
-public class SysUserRole extends BaseEntity implements Serializable {
+public class SysUserRole implements Serializable {
 	
 	/**
      * 角色ID

@@ -3,12 +3,10 @@ package com.spring.demo.springbootexample.sso.sysuserrole.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.petecat.interchan.core.entity.BaseEntity;
-
 import lombok.Data;
 
 @Data
-public class SysUserRoleRecord extends BaseEntity implements Serializable {
+public class SysUserRoleRecord implements Serializable {
 	
 	/**
      * 角色ID

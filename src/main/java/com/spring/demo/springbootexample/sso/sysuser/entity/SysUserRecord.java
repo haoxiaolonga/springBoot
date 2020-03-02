@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
-public class SysUserRecord extends BaseEntity implements Serializable {
+public class SysUserRecord implements Serializable {
 	/**
      * sy_chanmguserm
      */

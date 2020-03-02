@@ -3,12 +3,10 @@ package com.spring.demo.springbootexample.sso.sysfun.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.petecat.interchan.core.entity.BaseEntity;
-
 import lombok.Data;
 
 @Data
-public class SysFun extends BaseEntity implements Serializable {
+public class SysFun implements Serializable {
     /**
      * 功能代号
      */

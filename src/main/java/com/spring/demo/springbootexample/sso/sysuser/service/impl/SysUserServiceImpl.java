@@ -1,17 +1,5 @@
 package com.spring.demo.springbootexample.sso.sysuser.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Service;
-
 import com.mhuang.common.util.DataUtils;
 import com.petecat.interchan.core.constans.Global;
 import com.petecat.interchan.core.exception.BusinessException;
@@ -40,6 +28,17 @@ import com.petecat.interchan.sso.sysuser.mapper.SysUserRecordMapper;
 import com.petecat.interchan.sso.sysuser.service.ISysUserService;
 import com.petecat.interchan.sso.util.AES;
 import com.petecat.interchan.sso.util.MD5;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service("sysUserService")
 @RefreshScope
