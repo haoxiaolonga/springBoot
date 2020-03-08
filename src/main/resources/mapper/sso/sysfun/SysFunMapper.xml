@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.demo.springbootexample.sso.sysfun.mapper.SysFunMapper" >
+  <resultMap id="BaseResultMap" type="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" >
+    <constructor >
+      <idArg column="FUNID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ORDERVAL" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="LAYID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="FUNDESC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FUNPATH" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PARENTID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BOTFLAG" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="USEFLAG" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="DISPLAYFUN" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ATTACHID" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FUNID, ORDERVAL, LAYID, FUNDESC, FUNPATH, PARENTID, BOTFLAG, USEFLAG, DISPLAYFUN, 
+    OPERATE_USER, OPERATE_TIME,ATTACHID
+  </sql>
+  <sql id="PageBase_Column_ListA" >
+    a.FUNID, a.ORDERVAL, a.LAYID, a.FUNDESC, a.FUNPATH, a.PARENTID, a.BOTFLAG, a.USEFLAG, a.DISPLAYFUN,a.ATTACHID
+  </sql>
+  <select id="getById" resultType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_fun
+    where FUNID = #{funid,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="queryFunByParent" resultType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_fun
+    where parentid = #{funid,jdbcType=VARCHAR}
+    order by orderval asc
+  </select>
+  
+  
+ <select id="queryFunByParents" resultType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" parameterType="java.util.ArrayList" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from sys_fun
+	    where parentid  in
+	    <foreach collection="list" close=")" open="(" separator="," item="funid">
+	       #{funid,jdbcType=VARCHAR}
+	    </foreach>
+  </select>
+  
+  
+  <delete id="remove" parameterType="java.lang.String" >
+    delete from sys_fun
+    where FUNID = #{funid,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteFunByIds" parameterType="java.util.ArrayList" >
+    delete from sys_fun
+     where FUNID  in
+    <foreach collection="list" close=")" open="(" separator="," item="funid">
+       #{funid,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+  
+  <insert id="save" parameterType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" >
+    insert into sys_fun (FUNID, ORDERVAL, LAYID, 
+      FUNDESC, FUNPATH, PARENTID, 
+      BOTFLAG, USEFLAG, DISPLAYFUN, 
+      OPERATE_USER, OPERATE_TIME,ATTACHID)
+    values (#{funid,jdbcType=VARCHAR}, #{orderval,jdbcType=INTEGER}, #{layid,jdbcType=INTEGER}, 
+      #{fundesc,jdbcType=VARCHAR}, #{funpath,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, 
+      #{botflag,jdbcType=CHAR}, #{useflag,jdbcType=CHAR}, #{displayfun,jdbcType=CHAR}, 
+      #{operateUser,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP},#{attachid,jdbcType=VARCHAR} )
+  </insert>
+  <insert id="insertSelective" parameterType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" >
+    insert into sys_fun
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="funid != null" >
+        FUNID,
+      </if>
+      <if test="orderval != null" >
+        ORDERVAL,
+      </if>
+      <if test="layid != null" >
+        LAYID,
+      </if>
+      <if test="fundesc != null" >
+        FUNDESC,
+      </if>
+      <if test="funpath != null" >
+        FUNPATH,
+      </if>
+      <if test="parentid != null" >
+        PARENTID,
+      </if>
+      <if test="botflag != null" >
+        BOTFLAG,
+      </if>
+      <if test="useflag != null" >
+        USEFLAG,
+      </if>
+      <if test="displayfun != null" >
+        DISPLAYFUN,
+      </if>
+      <if test="operateUser != null" >
+        OPERATE_USER,
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME,
+      </if>
+       <if test="attachid != null" >
+        ATTACHID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="funid != null" >
+        #{funid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderval != null" >
+        #{orderval,jdbcType=INTEGER},
+      </if>
+      <if test="layid != null" >
+        #{layid,jdbcType=INTEGER},
+      </if>
+      <if test="fundesc != null" >
+        #{fundesc,jdbcType=VARCHAR},
+      </if>
+      <if test="funpath != null" >
+        #{funpath,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="botflag != null" >
+        #{botflag,jdbcType=CHAR},
+      </if>
+      <if test="useflag != null" >
+        #{useflag,jdbcType=CHAR},
+      </if>
+      <if test="displayfun != null" >
+        #{displayfun,jdbcType=CHAR},
+      </if>
+      <if test="operateUser != null" >
+        #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="attachid != null" >
+        #{attachid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" >
+    update sys_fun
+    <set >
+      <if test="orderval != null" >
+        ORDERVAL = #{orderval,jdbcType=INTEGER},
+      </if>
+      <if test="layid != null" >
+        LAYID = #{layid,jdbcType=INTEGER},
+      </if>
+      <if test="fundesc != null" >
+        FUNDESC = #{fundesc,jdbcType=VARCHAR},
+      </if>
+      <if test="funpath != null" >
+        FUNPATH = #{funpath,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="botflag != null" >
+        BOTFLAG = #{botflag,jdbcType=CHAR},
+      </if>
+      <if test="useflag != null" >
+        USEFLAG = #{useflag,jdbcType=CHAR},
+      </if>
+      <if test="displayfun != null" >
+        DISPLAYFUN = #{displayfun,jdbcType=CHAR},
+      </if>
+      <if test="operateUser != null" >
+        OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="attachid != null" >
+          ATTACHID = #{attachid,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where FUNID = #{funid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateById" parameterType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" >
+    update sys_fun
+    set ORDERVAL = #{orderval,jdbcType=INTEGER},
+      LAYID = #{layid,jdbcType=INTEGER},
+      FUNDESC = #{fundesc,jdbcType=VARCHAR},
+      FUNPATH = #{funpath,jdbcType=VARCHAR},
+      PARENTID = #{parentid,jdbcType=VARCHAR},
+      BOTFLAG = #{botflag,jdbcType=CHAR},
+      USEFLAG = #{useflag,jdbcType=CHAR},
+      DISPLAYFUN = #{displayfun,jdbcType=CHAR},
+      OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      ATTACHID = #{attachid,jdbcType=VARCHAR}
+    where FUNID = #{funid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryFunTree" parameterType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" resultType="com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunDTO">
+         select  <include refid="PageBase_Column_ListA" />,b.fundesc parentName,
+         <choose>
+          <when test="(funid == null or funid=='') and (fundesc == null or fundesc == '')">
+                   case when  exists( select 1 from sys_fun k where a.funid=k.parentid  ) then 1 else 0 end hasChild
+          </when>
+          <otherwise>0 hasChild</otherwise>
+         </choose>,
+         case when  exists( select 1 from sys_fun k where a.funid=k.parentid and k.botflag='1' ) then 1 else 0 end hasMenuChild
+         ,c.childSize,d.childMenuSize
+         from sys_fun a left outer join sys_fun b
+         on a.parentid=b.funid
+         left outer join (
+             select g.parentid,count(*) childSize
+             from sys_fun g group by g.parentid
+         ) c on a.funid=c.parentid
+         left outer join (
+             select g.parentid,count(*) childMenuSize
+             from sys_fun g 
+             where g.botflag='1'
+             group by g.parentid
+         ) d on a.funid=d.parentid
+         
+         <where>
+	       <if test="(funid == null or funid=='') and (fundesc == null or fundesc == '')" >
+	           <choose>
+	             <when test="parentid == null or parentid == ''">
+	                a.parentid='TOP'
+	             </when>
+	             <otherwise>
+	                a.parentid =#{parentid,jdbcType=VARCHAR}
+	             </otherwise>
+	           </choose>
+	       </if>
+	      <if test="funid != null and funid!=''" >
+	           LOCATE(#{funid,jdbcType=VARCHAR},a.funid)>0 
+	      </if>
+	      <if test="fundesc != null and fundesc != ''" >
+	          and LOCATE(#{fundesc,jdbcType=VARCHAR},a.fundesc)>0 
+	      </if>
+	      <if test="botflag != null" >
+	          and a.botflag=#{botflag,jdbcType=VARCHAR}
+	      </if>
+	        <if test="useflag != null" >
+	          and a.useflag=#{useflag,jdbcType=VARCHAR}
+	      </if>
+	      <if test="displayfun != null" >
+	          and a.displayfun=#{displayfun,jdbcType=VARCHAR}
+	      </if>
+	    </where>
+	    order by a.ORDERVAL asc
+  </select>
+  
+  
+  
+ <sql id="pageSql">
+     from sys_fun a left outer join sys_fun b
+     on a.parentid=b.funid
+     <where>
+	      <if test="record.funid != null" >
+	          and LOCATE(#{record.funid,jdbcType=VARCHAR},a.funid)>0 
+	      </if>
+	      <if test="record.fundesc != null" >
+	          and LOCATE(#{record.fundesc,jdbcType=VARCHAR},a.fundesc)>0 
+	      </if>
+	      <if test="record.botflag != null" >
+	          and a.botflag=#{record.botflag,jdbcType=VARCHAR}
+	      </if>
+	        <if test="record.useflag != null" >
+	          and a.useflag=#{record.useflag,jdbcType=VARCHAR}
+	      </if>
+	      <if test="record.displayfun != null" >
+	          and a.displayfun=#{record.displayfun,jdbcType=VARCHAR}
+	      </if>
+	  </where>
+  </sql>
+  
+  <select id="page" parameterType="com.spring.demo.springbootexample.protocol.Page" resultType="com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunPageDTO">
+       select  <include refid="PageBase_Column_ListA" />,b.fundesc parentName 
+       <include refid="pageSql" />
+       order by a.parentid  desc,orderval asc
+       limit #{start},#{rows}
+  </select>
+  
+  <select id="pageCount" parameterType="com.spring.demo.springbootexample.protocol.Page" resultType="int">
+       select count(*) <include refid="pageSql" />
+  </select>
+  
+   <insert id="insertInto" parameterType="com.spring.demo.springbootexample.protocol.InsertInto" >
+    insert into sys_fun_record(
+           FUNID,
+	       ORDERVAL,
+	       LAYID,
+	       FUNDESC,
+	       FUNPATH,
+	       PARENTID,
+	       BOTFLAG,
+	       USEFLAG,
+	       DISPLAYFUN,
+	       OPERATE_USER,
+	       OPERATE_TIME,
+	       OPERATE_STATUS,
+	       SEQNO,
+	       ATTACHID
+        )
+        select 
+           FUNID,
+	       ORDERVAL,
+	       LAYID,
+	       FUNDESC,
+	       FUNPATH,
+	       PARENTID,
+	       BOTFLAG,
+	       USEFLAG,
+	       DISPLAYFUN,
+	       #{userId},
+        <choose>
+          <when test="opDate != null">#{opDate,jdbcType=TIMESTAMP}</when>
+          <otherwise>OPERATE_TIME</otherwise>
+        </choose>
+         ,
+        #{status},
+        #{reqNo},
+        ATTACHID
+        from sys_fun where funid=#{id}        
+  </insert>
+  
+  
+  
+   <insert id="insertIntos" parameterType="com.spring.demo.springbootexample.protocol.InsertInto" >
+    insert into sys_fun_record(
+           FUNID,
+	       ORDERVAL,
+	       LAYID,
+	       FUNDESC,
+	       FUNPATH,
+	       PARENTID,
+	       BOTFLAG,
+	       USEFLAG,
+	       DISPLAYFUN,
+	       OPERATE_USER,
+	       OPERATE_TIME,
+	       OPERATE_STATUS,
+	       SEQNO,
+	       ATTACHID
+        )
+        select 
+           FUNID,
+	       ORDERVAL,
+	       LAYID,
+	       FUNDESC,
+	       FUNPATH,
+	       PARENTID,
+	       BOTFLAG,
+	       USEFLAG,
+	       DISPLAYFUN,
+	       #{userId},
+        <choose>
+          <when test="opDate != null">#{opDate,jdbcType=TIMESTAMP}</when>
+          <otherwise>OPERATE_TIME</otherwise>
+        </choose>
+         ,
+        #{status},
+        #{reqNo},
+        ATTACHID
+        from sys_fun 
+        where funid in 
+         <foreach collection="id" close=")" open="(" separator="," item="funid">
+	         #{funid,jdbcType=VARCHAR}
+	    </foreach>  
+  </insert>
+
+
+    <select id="queryAll" resultType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun">
+        select
+        <include refid="Base_Column_List" />
+        from sys_fun
+        order by PARENTID asc,ORDERVAL asc
+    </select>
+
+
+    <update id="updateSeqAndLevel" parameterType="com.spring.demo.springbootexample.sso.sysfun.entity.SysFun" >
+        update sys_fun
+        set
+                ORDERVAL = #{orderval,jdbcType=INTEGER},
+                LAYID = #{layid,jdbcType=INTEGER},
+                PARENTID = #{parentid,jdbcType=VARCHAR},
+                OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+                OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP}
+        where FUNID = #{funid,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

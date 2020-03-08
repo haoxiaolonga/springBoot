@@ -1,19 +1,18 @@
 package com.spring.demo.springbootexample.sso.sysfunvisturl.mapper;
 
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseMapper;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.entity.SyChanmgfunExcludeUrl;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.entity.SyChanmgfunVistUrlm;
+import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.petecat.interchan.core.mapper.BaseMapper;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.sso.sysfunvisturl.entity.SyChanmgfunExcludeUrl;
-import com.petecat.interchan.sso.sysfunvisturl.entity.SyChanmgfunVistUrlm;
-import com.petecat.interchan.sso.sysuser.entity.SysUser;
+import java.util.List;
 @Mapper
 @Repository("syChanmgfunVistUrlmMapper")
-public interface SyChanmgfunVistUrlmMapper extends BaseMapper<SyChanmgfunVistUrlm,String>{
+public interface SyChanmgfunVistUrlmMapper extends BaseMapper<SyChanmgfunVistUrlm,String> {
 
 	/**   
 	 * @Title: insertIntoByAuth   
@@ -80,4 +79,5 @@ public interface SyChanmgfunVistUrlmMapper extends BaseMapper<SyChanmgfunVistUrl
 	 * @return void     
 	 */
 	void deleteByAuths(List<String> ids);
+
 }

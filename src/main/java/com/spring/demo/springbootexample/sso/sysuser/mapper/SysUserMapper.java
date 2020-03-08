@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.petecat.interchan.core.mapper.BaseMapper;
-import com.petecat.interchan.protocol.data.Page;
-import com.petecat.interchan.sso.sysuser.domain.SysUserDO;
-import com.petecat.interchan.sso.sysuser.entity.SysUser;
+import com.spring.demo.springbootexample.base.BaseMapper;
+import com.spring.demo.springbootexample.protocol.Page;
+import com.spring.demo.springbootexample.sso.sysuser.domain.SysUserDO;
+import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
 
 /**
  * 

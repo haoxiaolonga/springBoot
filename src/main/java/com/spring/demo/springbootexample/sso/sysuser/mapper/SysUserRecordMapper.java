@@ -1,10 +1,10 @@
 package com.spring.demo.springbootexample.sso.sysuser.mapper;
 
+import com.spring.demo.springbootexample.base.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.petecat.interchan.core.mapper.BaseMapper;
-import com.petecat.interchan.sso.sysuser.entity.SysUserRecord;
+import com.spring.demo.springbootexample.sso.sysuser.entity.SysUserRecord;
 
 /**
  * 

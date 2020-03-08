@@ -1,11 +1,26 @@
 package com.spring.demo.springbootexample.sso.sysfun.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.spring.demo.springbootexample.base.BaseServiceImpl;
+import com.spring.demo.springbootexample.common.BusinessException;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.IdWorker;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.Page;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunModDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunPageQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunTreeQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunVO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmAddDTO;
+import com.spring.demo.springbootexample.sso.sysfun.entity.SysFun;
+import com.spring.demo.springbootexample.sso.sysfun.mapper.SysFunMapper;
+import com.spring.demo.springbootexample.sso.sysfun.service.ISysFunService;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService;
+import com.spring.demo.springbootexample.sso.sysrolefun.service.ISysRoleFunService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -14,35 +29,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.exception.BusinessException;
-import com.petecat.interchan.core.service.impl.BaseServiceImpl;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.data.Page;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunAddDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunModDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunPageQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunTreeQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunVO;
-import com.petecat.interchan.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmAddDTO;
-import com.petecat.interchan.redis.IdWorker;
-import com.petecat.interchan.sso.sysfun.entity.SysFun;
-import com.petecat.interchan.sso.sysfun.mapper.SysFunMapper;
-import com.petecat.interchan.sso.sysfun.service.ISysFunService;
-import com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService;
-import com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * 
- * @ClassName: SysFunServiceImpl
- * @Description:系统功能权限服务
- * @author: 张小虎
- * @date: 2017年7月19日 上午10:10:04
- */
 @Service("sysFunService")
 @Transactional(readOnly = true)
 public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implements ISysFunService {
@@ -55,7 +47,7 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 
 	@Autowired
 	private ISysRoleFunService sysRoleFunService;
-	
+
 	@Autowired
 	private ISyChanmgfunVistUrlService syChanmgfunVistUrlService;
 
@@ -70,10 +62,10 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 	 * <p>
 	 * Description:
 	 * </p>
-	 * 
+	 *
 	 * @param sysFunAddDTO
 	 * @param userId
-	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#saveFun(com.petecat.interchan.protocol.sso.sysfun.SysFunAddDTO,
+	 * @see com.spring.demo.springbootexample.sso.sysfun.service.ISysFunService#saveFun(com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunAddDTO,
 	 *      String)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -111,14 +103,14 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 		if(StringUtils.isNotBlank(sysFunAddDTO.getPowerPaths())){
 			  final String funid = fun.getFunid();
 			  List<String> urls = new ArrayList<>();
-			  List<SyChanmgfunVistUrlmAddDTO> dtos = 
+			  List<SyChanmgfunVistUrlmAddDTO> dtos =
 					Arrays.asList(sysFunAddDTO.getPowerPaths().split(",")).parallelStream().map(value->{
 					SyChanmgfunVistUrlmAddDTO dto = new SyChanmgfunVistUrlmAddDTO();
 					dto.setFunid(funid);
 					dto.setUrl(value);
 					return dto;
 			}).filter(value->{
-				if(StringUtils.isNotBlank(value.getUrl()) 
+				if(StringUtils.isNotBlank(value.getUrl())
 						&& !urls.contains(value.getUrl())){
 					urls.add(value.getUrl());
 					return true;
@@ -131,16 +123,8 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 	}
 
 	/**
-	 * <p>
-	 * Title: updateFun
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param sysFunAddDTO
 	 * @param userId
-	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#saveFun(com.petecat.interchan.protocol.sso.sysfun.SysFunAddDTO,
+	 * @see com.spring.demo.springbootexample.sso.sysfun.service.ISysFunService#saveFun(com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunAddDTO,
 	 *      String)
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -151,7 +135,7 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 		if (fun == null) {// 存在不存在功能权限代码
 			throw new BusinessException(Result.SYS_RESULT_FAILD, this.environment.getProperty("sysfun_not_exists"));
 		}
-		DataUtils.copyTo(sysFunModDTO, fun);
+//		DataUtils.copyTo(sysFunModDTO, fun);|
 		fun.setOperateTime(new Date());
 		fun.setOperateUser(userId);
 		if (StringUtils.isNotBlank(sysFunModDTO.getParentid()) && !"TOP".equals(fun.getParentid())) {
@@ -178,14 +162,14 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 		if(StringUtils.isNotBlank(sysFunModDTO.getPowerPaths())){
 			  final String funid = fun.getFunid();
 			  List<String> urls = new ArrayList<>();
-			  List<SyChanmgfunVistUrlmAddDTO> dtos = 
+			  List<SyChanmgfunVistUrlmAddDTO> dtos =
 					  Arrays.asList(sysFunModDTO.getPowerPaths().split(",")).parallelStream().map(value->{
 				SyChanmgfunVistUrlmAddDTO dto = new SyChanmgfunVistUrlmAddDTO();
 				dto.setFunid(funid);
 				dto.setUrl(value);
 				return dto;
 			}).filter(value->{
-				if(StringUtils.isNotBlank(value.getUrl()) 
+				if(StringUtils.isNotBlank(value.getUrl())
 						&& !urls.contains(value.getUrl())){
 					urls.add(value.getUrl());
 					return true;
@@ -204,10 +188,10 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 	 * <p>
 	 * Description:
 	 * </p>
-	 * 
+	 *
 	 * @param dto
 	 * @return
-	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#queryFunByPage(com.petecat.interchan.protocol.sso.sysfun.SysFunPageQueryDTO)
+	 * @see com.spring.demo.springbootexample.sso.sysfun.service.ISysFunService#queryFunByPage(com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunPageQueryDTO)
 	 */
 	@Override
 	public PageVO<SysFunVO> queryFunByPage(SysFunPageQueryDTO dto) {
@@ -224,18 +208,10 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 	}
 
 	/**
-	 * <p>
-	 * Title: queryFun
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
 	 * @param funid
 	 * @param nullException
 	 *            是否抛出数据不存在异常
 	 * @return SysFunQueryDTO
-	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#queryFun(funid,nullException)
 	 */
 	@Override
 	public SysFunQueryDTO queryFun(String funid, boolean nullException) {
@@ -253,22 +229,11 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 				} catch (Exception e) {
 				}
 			}
-			DataUtils.copyTo(fun, dto);
+//			DataUtils.copyTo(fun, dto);
 		}
 		return dto;
 	}
 
-	/**
-	 * <p>
-	 * Title: deleteFun
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param funid
-	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#deleteFun(String)
-	 */
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
 	public void deleteFun(String funid, String userId) {
@@ -301,19 +266,6 @@ public class SysFunServiceImpl extends BaseServiceImpl<SysFun, String> implement
 		this.syChanmgfunVistUrlService.deleteByFunsIds(ids,userId,InsertInto.DELETE,into.getReqNo());
 	}
 
-	/**
-	 * <p>
-	 * Title: queryFunTree
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param dto
-	 * @return
-	 * @see com.petecat.interchan.sso.sysfun.service.ISysFunService#queryFunTree(com.petecat.interchan.protocol.sso.sysfun.SysFunQueryDTO)
-	 */
-	@Override
 	public List<SysFunVO> queryFunTree(SysFunTreeQueryDTO dto) {
 		SysFun funm = DataUtils.copyTo(dto, SysFun.class);
 		List<SysFunDTO> funs = this.sysFunMapper.queryFunTree(funm);

@@ -1,34 +1,33 @@
 package com.spring.demo.springbootexample.sso.sysrole.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseServiceImpl;
+import com.spring.demo.springbootexample.common.BusinessException;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.IdWorker;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.Page;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleModDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRolePageQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleVO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.request.SysRolePageQueryQVO;
+import com.spring.demo.springbootexample.sso.sysrole.domain.SysRolePageQueryDO;
+import com.spring.demo.springbootexample.sso.sysrole.entity.SysRole;
+import com.spring.demo.springbootexample.sso.sysrole.mapper.SysRoleMapper;
+import com.spring.demo.springbootexample.sso.sysrole.service.ISysRoleService;
+import com.spring.demo.springbootexample.sso.sysrolefun.service.ISysRoleFunService;
+import com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.exception.BusinessException;
-import com.petecat.interchan.core.service.impl.BaseServiceImpl;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.data.Page;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleModDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRolePageQueryDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleQueryDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleVO;
-import com.petecat.interchan.protocol.sso.sysrole.request.SysRolePageQueryQVO;
-import com.petecat.interchan.redis.IdWorker;
-import com.petecat.interchan.sso.sysrole.domain.SysRolePageQueryDO;
-import com.petecat.interchan.sso.sysrole.entity.SysRole;
-import com.petecat.interchan.sso.sysrole.mapper.SysRoleMapper;
-import com.petecat.interchan.sso.sysrole.service.ISysRoleService;
-import com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService;
-import com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -63,7 +62,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Description: </p>   
 	 * @param sysRoleAddDTO
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#saveRole(com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO, String)
+	 * @see com.spring.demo.springbootexample.sso.sysrole.service.ISysRoleService#saveRole(com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleAddDTO, String)
 	 */ 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -90,9 +89,8 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	/**   
 	 * <p>Title: saveRole</p>   
 	 * <p>Description: </p>   
-	 * @param sysRoleAddDTO
-	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#saveRole(com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO, String)
+	 * @param userId
+	 * @see com.spring.demo.springbootexample.sso.sysrole.service.ISysRoleService#saveRole(com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleAddDTO, String)
 	 */ 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -120,7 +118,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Description: </p>   
 	 * @param dto
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#queryRoleByPage(com.petecat.interchan.protocol.sso.sysrole.SysRolePageQueryDTO)   
+	 * @see com.spring.demo.springbootexample.sso.sysrole.service.ISysRoleService#queryRoleByPage(com.spring.demo.springbootexample.protocol.sso.sysrole.SysRolePageQueryDTO)
 	 */  
 	@Override
 	public PageVO<SysRoleVO> queryRoleByPage(SysRolePageQueryDTO dto) {
@@ -142,10 +140,8 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Title: queryRole</p>   
 	 * <p>Description: </p>   
 	 * @param roleid
-	 * @param nullException 是否抛出数据不存在异常
 	 * @return  SysRoleQueryDTO
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#queryRole(roleid,nullException)   
-	 */  
+	 */
 	@Override
 	public SysRoleQueryDTO queryRole(String roleid,boolean nullException) {
 		SysRole role  = sysRoleMapper.getById(roleid);
@@ -165,8 +161,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Title: deleteRole</p>   
 	 * <p>Description: </p>   
 	 * @param roleid   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#deleteRole(String)
-	 */  
+	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public void deleteRole(String roleid,String userId) {
@@ -188,7 +183,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Description: </p>   
 	 * @param dto
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#pageOrderRole(com.petecat.interchan.protocol.sso.sysrole.request.SysRolePageQueryQVO)   
+	 * @see com.spring.demo.springbootexample.sso.sysrole.service.ISysRoleService#pageOrderRole(com.spring.demo.springbootexample.protocol.sso.sysrole.request.SysRolePageQueryQVO)
 	 */  
 	@Override
 	public List<SysRole> pageOrderRole(SysRolePageQueryQVO dto) {
@@ -204,7 +199,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole, String> impleme
 	 * <p>Description: </p>   
 	 * @param roleIds
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysrole.service.ISysRoleService#findByRoleIds(List)
+	 * @see com.spring.demo.springbootexample.sso.sysrole.service.ISysRoleService#findByRoleIds(List)
 	 */  
 	@Override
 	public List<SysRole> findByRoleIds(List<String> roleIds) {

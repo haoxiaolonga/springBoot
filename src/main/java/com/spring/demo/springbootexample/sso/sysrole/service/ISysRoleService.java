@@ -1,25 +1,19 @@
 package com.spring.demo.springbootexample.sso.sysrole.service;
 
+import com.spring.demo.springbootexample.base.BaseService;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleModDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRolePageQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleVO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.request.SysRolePageQueryQVO;
+import com.spring.demo.springbootexample.sso.sysrole.entity.SysRole;
+
 import java.util.List;
 
-import com.petecat.interchan.core.service.BaseService;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleModDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRolePageQueryDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleQueryDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleVO;
-import com.petecat.interchan.protocol.sso.sysrole.request.SysRolePageQueryQVO;
-import com.petecat.interchan.sso.sysrole.entity.SysRole;
 
-/**
- * 
- * @ClassName:  ISysRoleService   
- * @Description:系统角色服务
- * @author: 张小虎
- * @date:   2017年7月19日 上午10:06:08
- */
-public interface ISysRoleService extends BaseService<SysRole, String>{
+public interface ISysRoleService extends BaseService<SysRole, String> {
 
 	/**   
 	 * @Title: saveRole   
@@ -80,5 +74,5 @@ public interface ISysRoleService extends BaseService<SysRole, String>{
 	 * @return List<SysRole>     
 	 */
 	List<SysRole> findByRoleIds(List<String> roleIds);
-	
+
 }

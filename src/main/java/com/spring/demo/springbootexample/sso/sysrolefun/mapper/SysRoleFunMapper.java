@@ -1,16 +1,15 @@
 package com.spring.demo.springbootexample.sso.sysrolefun.mapper;
 
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseMapper;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunBatchDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunTreeDTO;
+import com.spring.demo.springbootexample.sso.sysrolefun.entity.SysRoleFun;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.petecat.interchan.core.mapper.BaseMapper;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunBatchDTO;
-import com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunDTO;
-import com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunTreeDTO;
-import com.petecat.interchan.sso.sysrolefun.entity.SysRoleFun;
+import java.util.List;
 
 /**
  * 

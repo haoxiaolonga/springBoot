@@ -1,21 +1,21 @@
 package com.spring.demo.springbootexample.sso.sysuser.service;
 
-import java.util.List;
+import com.spring.demo.springbootexample.base.BaseService;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.sso.UserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.LoginSysUserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserUpdateDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageQryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.ResetPwdDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdateCenterPwdDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdatePwdDTO;
+import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
 
-import com.petecat.interchan.core.service.BaseService;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.UserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.LoginSysUserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserAddDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserUpdateDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserVO;
-import com.petecat.interchan.protocol.sso.sysuser.dto.SysUserPageDTO;
-import com.petecat.interchan.protocol.sso.sysuser.dto.SysUserPageQryDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.ResetPwdDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.UpdateCenterPwdDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.UpdatePwdDTO;
-import com.petecat.interchan.sso.sysuser.entity.SysUser;
+import java.util.List;
 
 /**
  * 
@@ -24,7 +24,7 @@ import com.petecat.interchan.sso.sysuser.entity.SysUser;
  * @author: mhuang
  * @date:   2017年7月18日 下午7:13:17
  */
-public interface ISysUserService extends BaseService<SysUser, String>{
+public interface ISysUserService extends BaseService<SysUser, String> {
 
 	/**
 	 * 
@@ -41,7 +41,6 @@ public interface ISysUserService extends BaseService<SysUser, String>{
 	 * 
 	 * @Title: saveUser   
 	 * @Description: 新增系统用户   
-	 * @param sysUserDTO
 	 * @return
 	 * @return int
 	 * @throws Exception 
@@ -70,7 +69,6 @@ public interface ISysUserService extends BaseService<SysUser, String>{
 	 * 
 	 * @Title: resetPwd   
 	 * @Description:重置系统用户 密码 
-	 * @param updatePwdDTO
 	 * @return void
 	 */
 	public void resetPwd(ResetPwdDTO resetPwd);

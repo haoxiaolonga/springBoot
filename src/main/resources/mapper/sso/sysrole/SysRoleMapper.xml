@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.demo.springbootexample.sso.sysrole.mapper.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole" >
+    <constructor >
+      <idArg column="ROLEID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ROLEDESC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MARKFLAG" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLEID, ROLEDESC, MARKFLAG, OPERATE_USER, OPERATE_TIME
+  </sql>
+  <select id="getById" resultType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where ROLEID = #{roleid,jdbcType=VARCHAR}
+  </select>
+  <delete id="remove" parameterType="java.lang.String" >
+    delete from sys_role
+    where ROLEID = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole" >
+    insert into sys_role (ROLEID, ROLEDESC, MARKFLAG, 
+      OPERATE_USER, OPERATE_TIME)
+    values (#{roleid,jdbcType=VARCHAR}, #{roledesc,jdbcType=VARCHAR}, #{markflag,jdbcType=CHAR}, 
+      #{operateUser,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="save" parameterType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole" >
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+      <if test="roledesc != null" >
+        ROLEDESC,
+      </if>
+      <if test="markflag != null" >
+        MARKFLAG,
+      </if>
+      <if test="operateUser != null" >
+        OPERATE_USER,
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="roledesc != null" >
+        #{roledesc,jdbcType=VARCHAR},
+      </if>
+      <if test="markflag != null" >
+        #{markflag,jdbcType=CHAR},
+      </if>
+      <if test="operateUser != null" >
+        #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  
+ <insert id="insertInto" parameterType="com.spring.demo.springbootexample.protocol.InsertInto" >
+    insert into sys_role_record(
+        ROLEID,
+        ROLEDESC,
+        MARKFLAG,
+        OPERATE_USER,
+        OPERATE_TIME,
+        OPERATE_STATUS,
+        SEQNO
+        )
+        select 
+        ROLEID,
+        ROLEDESC,
+        MARKFLAG,
+        #{userId},
+        <choose>
+          <when test="opDate != null">#{opDate,jdbcType=TIMESTAMP}</when>
+          <otherwise>OPERATE_TIME</otherwise>
+        </choose>
+         ,
+        #{status},
+        #{reqNo}
+        from sys_role where ROLEID=#{id}        
+  </insert>
+  
+  <update id="update" parameterType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole" >
+    update sys_role
+    <set >
+      <if test="roledesc != null" >
+        ROLEDESC = #{roledesc,jdbcType=VARCHAR},
+      </if>
+      <if test="markflag != null" >
+        MARKFLAG = #{markflag,jdbcType=CHAR},
+      </if>
+      <if test="operateUser != null" >
+        OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ROLEID = #{roleid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole" >
+    update sys_role
+    set ROLEDESC = #{roledesc,jdbcType=VARCHAR},
+      MARKFLAG = #{markflag,jdbcType=CHAR},
+      OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP}
+    where ROLEID = #{roleid,jdbcType=VARCHAR}
+  </update>
+  
+ <sql id="pageSql">
+     from sys_role a
+     <where>
+	      <if test="record.roleid != null" >
+	          LOCATE(#{record.roleid,jdbcType=VARCHAR},a.roleid)>0 
+	      </if>
+	      <if test="record.roledesc != null" >
+	          and LOCATE(#{record.roledesc,jdbcType=VARCHAR},a.roledesc)>0 
+	      </if>
+	      <if test="record.markflag != null" >
+	          and a.MARKFLAG=#{record.markflag,jdbcType=VARCHAR}
+	      </if>
+      </where>
+  </sql>
+  
+  <select id="page" parameterType="com.spring.demo.springbootexample.protocol.Page" resultType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole">
+       select  <include refid="Base_Column_List" />  <include refid="pageSql" />
+       order by a.OPERATE_TIME desc
+       limit #{start},#{rows}
+  </select>
+  
+  <select id="pageCount" parameterType="com.spring.demo.springbootexample.protocol.Page" resultType="int">
+       select count(*) <include refid="pageSql" />
+  </select>
+  
+  
+  <select id="pageOrderRole" parameterType="com.spring.demo.springbootexample.protocol.Page" resultType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole">
+    select * from (
+       select  <include refid="Base_Column_List" /> ,
+	 	<choose>
+	 	<when test="record.orderRoleIds !=null and record.orderRoleIds !='' ">
+	 	   case when  FIND_IN_SET(roleid,#{record.orderRoleIds,jdbcType=VARCHAR})>0 then 1 else 0 end
+	 	</when>
+	 	<otherwise>
+	 	    0 
+	 	</otherwise>
+	 	</choose>
+	 	orderVal
+        <include refid="pageSql" />
+       ) k 
+       order by k.orderval desc,k.roleid asc
+       limit #{start},#{rows}
+  </select>
+  
+  <select id="findByRoleIds" parameterType="java.util.List" resultType="com.spring.demo.springbootexample.sso.sysrole.entity.SysRole">
+	 select 
+	    <include refid="Base_Column_List" />
+	    from sys_role
+	    where ROLEID in
+	    <foreach collection="list" close=")" open="(" item="roleid" separator=",">
+	     #{roleid,jdbcType=VARCHAR}
+	    </foreach>
+      
+  </select>
+  
+</mapper>

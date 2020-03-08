@@ -1,20 +1,25 @@
-/**  
- * All rights Reserved, Designed By http://www.pete-cat.com/
- * @Title:  SysRoleController.java   
- * @Package com.petecat.interchan.sso.sysuserrole   
- * @Description:系统角色
- * @author: 成都皮特猫科技     
- * @date:2017年7月20日 下午6:48:48   
- * @version V1.0 
- * @Copyright: 2017 www.pete-cat.com Inc. All rights reserved. 
- * 注意：本内容仅限于成都皮特猫信息技术有限公司内部传阅，禁止外泄以及用于其他的商业目
- */  
 package com.spring.demo.springbootexample.sso.sysrole.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.petecat.interchan.core.local.GlobalHeaderThreadLocal;
+import com.spring.demo.springbootexample.base.BaseController;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.Global;
+import com.spring.demo.springbootexample.common.GlobalHeader;
+import com.spring.demo.springbootexample.protocol.Page;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleModDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRolePageQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.SysRoleVO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.request.SysRolePageQueryQVO;
+import com.spring.demo.springbootexample.protocol.sso.sysrole.response.SysRoleRVO;
+import com.spring.demo.springbootexample.sso.sysrole.entity.SysRole;
+import com.spring.demo.springbootexample.sso.sysrole.service.ISysRoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,29 +31,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.constans.Global;
-import com.petecat.interchan.core.controller.BaseController;
-import com.petecat.interchan.protocol.GlobalHeader;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.data.Page;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleAddDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleModDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRolePageQueryDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleQueryDTO;
-import com.petecat.interchan.protocol.sso.sysrole.SysRoleVO;
-import com.petecat.interchan.protocol.sso.sysrole.request.SysRolePageQueryQVO;
-import com.petecat.interchan.protocol.sso.sysrole.response.SysRoleRVO;
-import com.petecat.interchan.sso.sysrole.entity.SysRole;
-import com.petecat.interchan.sso.sysrole.service.ISysRoleService;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**   
  * @ClassName:  SysRoleController   

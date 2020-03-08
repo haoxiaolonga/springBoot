@@ -1,15 +1,14 @@
 package com.spring.demo.springbootexample.sso.sysfun.mapper;
 
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseMapper;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.Page;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunDTO;
+import com.spring.demo.springbootexample.sso.sysfun.entity.SysFun;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.petecat.interchan.core.mapper.BaseMapper;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.data.Page;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunDTO;
-import com.petecat.interchan.sso.sysfun.entity.SysFun;
+import java.util.List;
 
 /**
  * 

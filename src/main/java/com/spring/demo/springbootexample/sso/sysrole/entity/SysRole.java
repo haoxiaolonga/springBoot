@@ -1,12 +1,10 @@
 package com.spring.demo.springbootexample.sso.sysrole.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import com.petecat.interchan.core.entity.BaseEntity;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)

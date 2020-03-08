@@ -1,39 +1,38 @@
 package com.spring.demo.springbootexample.sso.sysuser.service.impl;
 
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.constans.Global;
-import com.petecat.interchan.core.exception.BusinessException;
-import com.petecat.interchan.core.service.impl.BaseServiceImpl;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.data.Page;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.UserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.LoginSysUserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserAddDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserUpdateDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserVO;
-import com.petecat.interchan.protocol.sso.sysuser.dto.SysUserPageDTO;
-import com.petecat.interchan.protocol.sso.sysuser.dto.SysUserPageQryDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.ResetPwdDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.UpdateCenterPwdDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.UpdatePwdDTO;
-import com.petecat.interchan.redis.IdWorker;
-import com.petecat.interchan.redis.commands.IRedisExtCommands;
-import com.petecat.interchan.sso.sysuser.domain.SysUserDO;
-import com.petecat.interchan.sso.sysuser.entity.SysUser;
-import com.petecat.interchan.sso.sysuser.mapper.SysUserMapper;
-import com.petecat.interchan.sso.sysuser.mapper.SysUserRecordMapper;
-import com.petecat.interchan.sso.sysuser.service.ISysUserService;
-import com.petecat.interchan.sso.util.AES;
-import com.petecat.interchan.sso.util.MD5;
+import com.spring.demo.springbootexample.base.BaseServiceImpl;
+import com.spring.demo.springbootexample.common.BusinessException;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.Global;
+import com.spring.demo.springbootexample.common.IRedisExtCommands;
+import com.spring.demo.springbootexample.common.IdWorker;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.Page;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.UserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.LoginSysUserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserUpdateDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageQryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.ResetPwdDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdateCenterPwdDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdatePwdDTO;
+import com.spring.demo.springbootexample.sso.sysuser.domain.SysUserDO;
+import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
+import com.spring.demo.springbootexample.sso.sysuser.mapper.SysUserMapper;
+import com.spring.demo.springbootexample.sso.sysuser.mapper.SysUserRecordMapper;
+import com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService;
+import com.spring.demo.springbootexample.sso.util.AES;
+import com.spring.demo.springbootexample.sso.util.MD5;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,6 @@ import java.util.Date;
 import java.util.List;
 
 @Service("sysUserService")
-@RefreshScope
 public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> implements ISysUserService{
 	
 	private SysUserMapper sysUserMapper;
@@ -345,7 +343,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	 * <p>Description: </p>   
 	 * @param mobilephone
 	 * @param password
-	 * @see com.petecat.interchan.sso.sysuser.service.ISysUserService#loginUsePwd(String, String)
+	 * @see com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService#loginUsePwd(String, String)
 	 */  
 	@Override
 	public LoginSysUserDTO loginUsePwd(String mobilephone, String password) {
@@ -404,8 +402,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	 * @Title: getCacheUserByMobileToLogin   
 	 * @Description: 
 	 * @param mobilephone
-	 * @param string
-	 * @return SysUser     
+	 * @return SysUser
 	 */
 	private SysUser getCacheUserByMobileToLogin(String mobilephone, String errorKey) {
 		SysUser  sysuser = null;
@@ -480,7 +477,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	public  boolean setSyuserRedisMobileToUser(String mobilephone,String userId) {
 		try {
 			return redisExtCommands.hset(SYUSER_REDIS_MOBILE_TOUSERID_PREKEY, 
-					mobilephone, userId,Global.EXPIRE_THIRTY_DAYS);
+					mobilephone, userId, Global.EXPIRE_THIRTY_DAYS);
 		} catch (Exception e) {
 			logger.error("setSyuserRedisMobileToUser 设置缓存信息失败,手机号为：{}",mobilephone,e);
 			return false;
@@ -517,7 +514,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	 * <p>Description: </p>   
 	 * @param sysUserDTO
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuser.service.ISysUserService#pageForOrder(com.petecat.interchan.protocol.sso.sysuser.dto.SysUserPageQryDTO)   
+	 * @see com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService#pageForOrder(com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageQryDTO)
 	 */  
 	@Override
 	public List<SysUserPageDTO> pageForOrder(SysUserPageQryDTO sysUserDTO) {
@@ -534,7 +531,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	 * <p>Description: </p>   
 	 * @param userIds
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuser.service.ISysUserService#findByUserIds(List)
+	 * @see com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService#findByUserIds(List)
 	 */  
 	@Override
 	public List<SysUser> findByUserIds(List<String> userIds) {

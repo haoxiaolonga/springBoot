@@ -2,7 +2,7 @@
  * All rights Reserved, Designed By http://www.pete-cat.com/
  * TODO(用一句话描述该文件做什么)   
  * @Title:  SysRolePageQueryQVO.java   
- * @Package com.petecat.interchan.sso.sysrole.domain  
+ * @Package com.spring.demo.springbootexample.sso.sysrole.domain
  * @author: 成都皮特猫科技     
  * @date:2018年3月26日 下午1:56:42   
  * @version V1.0 

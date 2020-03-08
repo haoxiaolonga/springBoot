@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.demo.springbootexample.sso.sysrolefun.mapper.SysRoleFunMapper" >
+  <resultMap id="BaseResultMap" type="com.spring.demo.springbootexample.sso.sysrolefun.entity.SysRoleFun" >
+    <constructor >
+      <idArg column="FUNID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <idArg column="ROLEID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="OPERATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FUNID, ROLEID, OPERATE_TIME, OPERATE_USER
+  </sql>
+  
+  <select id="queryRoleFun" resultType="com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunDTO" parameterType="string" >
+     select b.funid,b.fundesc,b.orderval,c.fundesc parentName,b.parentid
+	    from sys_role_fun a 
+	    inner join sys_fun b
+	    on a.funid=b.funid 
+	    left join sys_fun c
+	    on b.parentid=c.funid
+	    where a.ROLEID = #{roleid,jdbcType=VARCHAR}
+	    order by b.parentid desc,b.orderval desc
+  </select>
+  
+   
+  <select id="queryRoleFunTree" resultType="com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunTreeDTO" parameterType="string" >
+    select b.funid,b.fundesc,b.orderval,c.fundesc parentName,b.parentid,b.useflag,b.botflag,b.displayfun,
+	    case when exists(select 1 from sys_role_fun k where k.funid=b.funid 
+	        and k.roleid=#{roleid,jdbcType=VARCHAR} ) then 1 else 0 end checked
+	     from  sys_fun b
+	    left join sys_fun c
+	    on b.parentid=c.funid
+	    order by b.parentid desc,b.orderval desc
+  </select>
+  
+  
+  <delete id="deleteByRoleId" parameterType="string" >
+    delete from sys_role_fun
+    where  ROLEID = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="addRoleFun" parameterType="com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunBatchDTO" >
+    insert into sys_role_fun (FUNID, ROLEID, OPERATE_TIME,OPERATE_USER)
+    values
+    <foreach collection="funids" item="funid" separator=",">
+        (#{funid,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
+        #{operateUser,jdbcType=VARCHAR})
+    </foreach>
+  
+  </insert>
+  
+  
+ <insert id="insertInto" parameterType="com.spring.demo.springbootexample.protocol.InsertInto" >
+    insert into sys_role_fun_record(
+        FUNID,
+        ROLEID,
+        OPERATE_USER,
+        OPERATE_TIME,
+        OPERATE_STATUS,
+        SEQNO
+        )
+        select 
+        FUNID,
+        ROLEID,
+        #{userId},
+        <choose>
+          <when test="opDate != null">#{opDate,jdbcType=TIMESTAMP}</when>
+          <otherwise>OPERATE_TIME</otherwise>
+        </choose>
+         ,
+        #{status},
+        #{reqNo}
+        from sys_role_fun where ROLEID=#{id}        
+  </insert>
+  
+  <delete id="deleteByFuns" parameterType="list">
+         delete from sys_role_fun
+         where funid in 
+         <foreach collection="list" item="funid" open="(" close=")" separator=",">
+             #{funid,jdbcType=VARCHAR}
+        </foreach>
+  </delete>
+  
+ <insert id="insertIntoByFuns" parameterType="com.spring.demo.springbootexample.protocol.InsertInto" >
+    insert into sys_role_fun_record(
+        FUNID,
+        ROLEID,
+        OPERATE_USER,
+        OPERATE_TIME,
+        OPERATE_STATUS,
+        SEQNO
+        )
+        select 
+        FUNID,
+        ROLEID,
+        #{userId},
+        <choose>
+          <when test="opDate != null">#{opDate,jdbcType=TIMESTAMP}</when>
+          <otherwise>OPERATE_TIME</otherwise>
+        </choose>
+         ,
+        #{status},
+        #{reqNo}
+        from sys_role_fun where ROLEID 
+        in(select distinct ROLEID from sys_role_fun
+           where funid in 
+            <foreach collection="id" item="funid" open="(" close=")" separator=",">
+                  #{funid,jdbcType=VARCHAR}
+            </foreach>
+         )
+  </insert>
+  
+  
+  
+</mapper>

@@ -1,14 +1,12 @@
 package com.spring.demo.springbootexample.sso.sysuser.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import com.petecat.interchan.core.entity.BaseEntity;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor

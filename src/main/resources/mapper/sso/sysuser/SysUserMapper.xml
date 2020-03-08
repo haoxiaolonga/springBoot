@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.demo.springbootexample.sso.sysuser.mapper.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.spring.demo.springbootexample.sso.sysuser.entity.SysUser" >
+    <constructor>
+      <idArg column="USERID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="USERNAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PASSWORD" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CHGPWDFLAG" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="VALIDDAY" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="WARNINGDAY" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MOBILEPHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ENTRANTDATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="AVAILABLE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_USER"  jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_TIME"  jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USERID, USERNAME, PASSWORD, CHGPWDFLAG, VALIDDAY, WARNINGDAY, EMAIL, TEL, MOBILEPHONE, 
+    ADDRESS, ENTRANTDATE, AVAILABLE, OPERATE_USER, OPERATE_TIME
+  </sql>
+  
+  <select id="count" resultType="java.lang.Integer" parameterType="com.spring.demo.springbootexample.sso.sysuser.entity.SysUser">
+  	select COUNT(1) from  sys_user 
+  	<where>
+  		<if test="mobilephone != null">
+  			locate(#{mobilephone,jdbcType=VARCHAR},MOBILEPHONE)>0
+  		</if>
+  		<if test="username != null">
+  			and locate(#{username,jdbcType=VARCHAR},USERNAME)>0
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="page" resultMap="BaseResultMap" parameterType="com.spring.demo.springbootexample.protocol.Page">
+  	select 
+ 	<include refid="Base_Column_List" />
+  	from  sys_user 
+  	<where>
+  		<if test="record.mobilephone != null">
+  			locate(#{record.mobilephone,jdbcType=VARCHAR},MOBILEPHONE)>0
+  		</if>
+  		<if test="record.username != null">
+  			and locate(#{record.username,jdbcType=VARCHAR},USERNAME)>0
+  		</if>
+  	</where>
+  	limit #{start},#{rows}
+  </select>
+  
+  <select id="pageForOrder" resultMap="BaseResultMap" parameterType="com.spring.demo.springbootexample.protocol.Page">
+  	select * from (
+	  	select 
+	 	<include refid="Base_Column_List" />,
+	 	<choose>
+	 	<when test="record.orderUserIds !=null and record.orderUserIds !='' ">
+	 	   case when  FIND_IN_SET(userid,#{record.orderUserIds,jdbcType=VARCHAR})>0 then 1 else 0 end
+	 	</when>
+	 	<otherwise>
+	 	    0 
+	 	</otherwise>
+	 	</choose>
+	 	orderVal
+	  	from  sys_user 
+	  	<where>
+	  		<if test="record.mobilephone != null and record.mobilephone !='' ">
+	  			locate(#{record.mobilephone,jdbcType=VARCHAR},MOBILEPHONE)>0
+	  		</if>
+	  		<if test="record.username != null and record.username !=''  ">
+	  			and locate(#{record.username,jdbcType=VARCHAR},USERNAME)>0
+	  		</if>
+	  		<if test="record.available != null and record.available !=''  ">
+	  			and  available = #{record.available,jdbcType=VARCHAR}
+	  		</if>
+	  		
+	  	</where>
+  	) k order by orderVal desc,userid asc
+  	limit #{start},#{rows}
+  </select>
+  
+  
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </select>
+   
+  <select id="getSysUserByMobilephone" resultType="com.spring.demo.springbootexample.sso.sysuser.entity.SysUser" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where MOBILEPHONE = #{mobilephone,jdbcType=VARCHAR}
+  </select>
+  <select id="findByUserIds" parameterType="java.util.List" resultType="com.spring.demo.springbootexample.sso.sysuser.entity.SysUser" >
+	   select 
+	    <include refid="Base_Column_List" />
+	    from sys_user
+	    where userid in
+	    <foreach collection="list" close=")" open="(" item="userid" separator=",">
+	         #{userid,jdbcType=VARCHAR}
+	    </foreach>
+  </select>
+  
+  <delete id="remove" parameterType="java.lang.String" >
+    delete from sys_user
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="save" parameterType="com.spring.demo.springbootexample.sso.sysuser.entity.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="chgpwdflag != null" >
+        CHGPWDFLAG,
+      </if>
+      <if test="validday != null" >
+        VALIDDAY,
+      </if>
+      <if test="warningday != null" >
+        WARNINGDAY,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="mobilephone != null" >
+        MOBILEPHONE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="entrantdate != null" >
+        ENTRANTDATE,
+      </if>
+      <if test="available != null" >
+        AVAILABLE,
+      </if>
+      <if test="operateUser != null" >
+        OPERATE_USER,
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="chgpwdflag != null" >
+        #{chgpwdflag,jdbcType=CHAR},
+      </if>
+      <if test="validday != null" >
+        #{validday,jdbcType=INTEGER},
+      </if>
+      <if test="warningday != null" >
+        #{warningday,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="entrantdate != null" >
+        #{entrantdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=CHAR},
+      </if>
+      <if test="operateUser != null" >
+        #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="lock" parameterType="com.spring.demo.springbootexample.sso.sysuser.entity.SysUser" >
+  	update sys_user set AVAILABLE = if(AVAILABLE = '1',0 ,1),
+  		OPERATE_USER = #{operateUser,jdbcType=VARCHAR}, 
+  		OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP}
+  		where USERID = #{userid,jdbcType=VARCHAR}
+  </update> 
+  <update id="update" parameterType="com.spring.demo.springbootexample.sso.sysuser.entity.SysUser" >
+    update sys_user
+    <set >
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="chgpwdflag != null" >
+        CHGPWDFLAG = #{chgpwdflag,jdbcType=CHAR},
+      </if>
+      <if test="validday != null" >
+        VALIDDAY = #{validday,jdbcType=INTEGER},
+      </if>
+      <if test="warningday != null" >
+        WARNINGDAY = #{warningday,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        MOBILEPHONE = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="entrantdate != null" >
+        ENTRANTDATE = #{entrantdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="available != null" >
+        AVAILABLE = #{available,jdbcType=CHAR},
+      </if>
+      <if test="operateUser != null" >
+        OPERATE_USER = #{operateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null" >
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+
+
+    <select id="getAllSysUser" resultMap="BaseResultMap">
+
+        select <include refid="Base_Column_List"/>
+        from sys_user t
+        where t.AVAILABLE = '1'
+        order by OPERATE_TIME desc;
+
+    </select>
+
+    <select id="getIdsByName" parameterType="java.lang.String" resultType="java.lang.String">
+
+        select t.USERID from sys_user t where LOCATE(#{name},t.USERNAME) <![CDATA[ > ]]> 0
+
+    </select>
+
+    <select id="queryAll" resultMap="BaseResultMap">
+
+        select <include refid="Base_Column_List"/> from sys_user
+    </select>
+
+</mapper>

@@ -36,7 +36,7 @@
 
         <table tableName="test" domainObjectName="Test" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <!-- 基类  <property name="rootClass" value="com.petecat.interchan.core.entity.BaseEntity" /> -->
+            <!-- 基类  <property name="rootClass" value="com.spring.demo.springbootexample.core.entity.BaseEntity" /> -->
             <columnOverride column="RSA_PRIVATE_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
             <columnOverride column="RSA_PUBLIC_KEY" javaType="java.lang.String" jdbcType="VARCHAR" />
         </table>

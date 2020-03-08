@@ -1,16 +1,16 @@
 package com.spring.demo.springbootexample.sso.sysfun.service;
 
-import java.util.List;
+import com.spring.demo.springbootexample.base.BaseService;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunModDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunPageQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunTreeQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunVO;
+import com.spring.demo.springbootexample.sso.sysfun.entity.SysFun;
 
-import com.petecat.interchan.core.service.BaseService;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunAddDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunModDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunPageQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunTreeQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunVO;
-import com.petecat.interchan.sso.sysfun.entity.SysFun;
+import java.util.List;
 
 /**
  * 
@@ -19,7 +19,7 @@ import com.petecat.interchan.sso.sysfun.entity.SysFun;
  * @author: 张小虎
  * @date:   2017年7月19日 上午10:06:08
  */
-public interface ISysFunService extends BaseService<SysFun, String>{
+public interface ISysFunService extends BaseService<SysFun, String> {
 
 	/**   
 	 * @Title: saveFun   

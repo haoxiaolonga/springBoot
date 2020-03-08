@@ -1,15 +1,14 @@
 package com.spring.demo.springbootexample.sso.sysfunvisturl.service;
 
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseService;
+import com.spring.demo.springbootexample.protocol.sso.sysfunvisturl.SyChanmgfunExcludeUrlDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmQryDTO;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.entity.SyChanmgfunVistUrlm;
+import com.spring.demo.springbootexample.sso.sysrole.entity.SysRole;
 import org.springframework.scheduling.annotation.Async;
 
-import com.petecat.interchan.core.service.BaseService;
-import com.petecat.interchan.protocol.sso.sysfunvisturl.SyChanmgfunExcludeUrlDTO;
-import com.petecat.interchan.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmAddDTO;
-import com.petecat.interchan.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmQryDTO;
-import com.petecat.interchan.sso.sysfunvisturl.entity.SyChanmgfunVistUrlm;
-import com.petecat.interchan.sso.sysrole.entity.SysRole;
+import java.util.List;
 
 /**
  * 
@@ -18,7 +17,7 @@ import com.petecat.interchan.sso.sysrole.entity.SysRole;
  * @author: 张小虎
  * @date:   2017年7月19日 上午10:06:08
  */
-public interface ISyChanmgfunVistUrlService extends BaseService<SyChanmgfunVistUrlm, String>{
+public interface ISyChanmgfunVistUrlService extends BaseService<SyChanmgfunVistUrlm, String> {
 
 	/**   
 	 * @Title: deleteByAuth   

@@ -1,28 +1,27 @@
 package com.spring.demo.springbootexample.sso.sysuserrole.service.impl;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseServiceImpl;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.IRedisExtCommands;
+import com.spring.demo.springbootexample.common.IdWorker;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleBatchDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleDTO;
+import com.spring.demo.springbootexample.sso.sysuserrole.entity.SysUserRole;
+import com.spring.demo.springbootexample.sso.sysuserrole.mapper.SysUserRoleMapper;
+import com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.service.impl.BaseServiceImpl;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserFunDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleAddDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleBatchDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleDTO;
-import com.petecat.interchan.redis.IdWorker;
-import com.petecat.interchan.redis.commands.IRedisExtCommands;
-import com.petecat.interchan.sso.sysuserrole.entity.SysUserRole;
-import com.petecat.interchan.sso.sysuserrole.mapper.SysUserRoleMapper;
-import com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -54,8 +53,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Title: saveUserRole</p>   
 	 * <p>Description: </p>   
 	 * @param sysUserRoleAddDTO
-	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#saveUserRole(com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleAddDTO, String)
+	 * @see com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService#saveUserRole(com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleAddDTO, String)
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -87,7 +85,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param userid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserRole(String)
+	 * @see com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService#queryUserRole(String)
 	 */  
 	@Override
 	public List<SysUserRoleDTO> queryUserRole(String userid) {
@@ -99,7 +97,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param userid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserFun(String)
+	 * @see com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService#queryUserFun(String)
 	 */  
 	@Override
 	public List<SysUserFunDTO> queryUserFun(String userid) {
@@ -111,7 +109,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param userid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#queryUserRoleCheck(String)
+	 * @see com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService#queryUserRoleCheck(String)
 	 */  
 	@Override
 	public List<SysUserRoleCheckDTO> queryUserRoleCheck(String userid) {
@@ -123,7 +121,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Description: </p>   
 	 * @param roleid
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#sysUserRoleService(String, String)
+	 * @see com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService#sysUserRoleService(String, String)
 	 */  
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -142,7 +140,7 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole, String>
 	 * <p>Title: setUserRoleToCache</p>   
 	 * <p>Description: </p>   
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService#setUserRoleToCache(String)
+	 * @see com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService#setUserRoleToCache(String)
 	 */  
 	@Override
 	public void setUserRoleToCache(String userId) {

@@ -1,11 +1,9 @@
 package com.spring.demo.springbootexample.sso.sysuserrole.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-
-import com.petecat.interchan.core.entity.BaseEntity;
-
-import lombok.Data;
 
 @Data
 public class SysUserRole implements Serializable {

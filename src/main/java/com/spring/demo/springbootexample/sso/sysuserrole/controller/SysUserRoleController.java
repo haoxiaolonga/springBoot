@@ -1,8 +1,24 @@
 package com.spring.demo.springbootexample.sso.sysuserrole.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.spring.demo.springbootexample.base.BaseController;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.Global;
+import com.spring.demo.springbootexample.common.GlobalHeader;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserFunVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleCheckVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleVO;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService;
+import com.spring.demo.springbootexample.sso.sysuserrole.service.ISysUserRoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,28 +27,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.constans.Global;
-import com.petecat.interchan.core.controller.BaseController;
-import com.petecat.interchan.protocol.GlobalHeader;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserFunDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserFunVO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleAddDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleCheckVO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleVO;
-import com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService;
-import com.petecat.interchan.sso.sysuserrole.service.ISysUserRoleService;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
 
 /**   
  * @ClassName:  SysUserRoleController   
@@ -112,10 +109,11 @@ public class SysUserRoleController extends BaseController {
 			@ApiIgnore @RequestHeader(name = Global.GLOBAL_HEADER,required = false) String headerStr){
 		GlobalHeader header = this.getUserInfo(headerStr, true);
 		List<SysUserFunDTO> dtos = this.sysUserRoleService.queryUserFun(header.getUserId());
-		List<SysUserFunVO> roleFunVos = DataUtils.copyTo(dtos, SysUserFunVO.class).parallelStream().
-				filter(t->"1".equals(t.getUseflag())).collect(Collectors.toList());
+//		List<SysUserFunVO> roleFunVos = DataUtils.copyTo(dtos, SysUserFunVO.class).parallelStream().
+//				filter(t->"1".equals(t.getUseflag())).collect(Collectors.toList());
 		this.syChanmgfunVistUrlService.setVistUrlPowerNow(header.getUserId());
 		this.sysUserRoleService.setUserRoleToCache(header.getUserId());
-		return (Result<List<SysUserFunVO>>) Result.ok(roleFunVos);
+//		return (Result<List<SysUserFunVO>>) Result.ok(roleFunVos);
+		return null;
 	}
 }

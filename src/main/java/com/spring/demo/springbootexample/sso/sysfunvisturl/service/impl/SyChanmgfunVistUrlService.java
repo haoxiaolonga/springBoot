@@ -1,11 +1,18 @@
 package com.spring.demo.springbootexample.sso.sysfunvisturl.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
+import com.spring.demo.springbootexample.base.BaseServiceImpl;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.IdWorker;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.sso.sysfunvisturl.SyChanmgfunExcludeUrlDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmQryDTO;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.entity.SyChanmgfunExcludeUrl;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.entity.SyChanmgfunVistUrlm;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.mapper.SyChanmgfunVistUrlmMapper;
+import com.spring.demo.springbootexample.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService;
+import com.spring.demo.springbootexample.sso.sysrole.entity.SysRole;
+import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -16,21 +23,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.auth.common.constant.AuthConstant;
-import com.petecat.interchan.core.service.impl.BaseServiceImpl;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.sso.sysfunvisturl.SyChanmgfunExcludeUrlDTO;
-import com.petecat.interchan.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmAddDTO;
-import com.petecat.interchan.protocol.sso.sysfunvisturl.SyChanmgfunVistUrlmQryDTO;
-import com.petecat.interchan.redis.IdWorker;
-import com.petecat.interchan.redis.commands.IRedisExtCommands;
-import com.petecat.interchan.sso.sysfunvisturl.entity.SyChanmgfunExcludeUrl;
-import com.petecat.interchan.sso.sysfunvisturl.entity.SyChanmgfunVistUrlm;
-import com.petecat.interchan.sso.sysfunvisturl.mapper.SyChanmgfunVistUrlmMapper;
-import com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService;
-import com.petecat.interchan.sso.sysrole.entity.SysRole;
-import com.petecat.interchan.sso.sysuser.entity.SysUser;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -44,18 +41,12 @@ import com.petecat.interchan.sso.sysuser.entity.SysUser;
 public class SyChanmgfunVistUrlService 
 extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVistUrlService,InitializingBean{
 
-	@Autowired
-    private	IRedisExtCommands redisExtCommands;
-	
+//    private	IRedisExtCommands redisExtCommands;
+
 	@Autowired
 	private SyChanmgfunVistUrlmMapper syChanmgfunVistUrlmMapper;
 	
-	@Autowired
-	private void setMapper(SyChanmgfunVistUrlmMapper syChanmgfunVistUrlmMapper){
-		super.setBaseMapper(syChanmgfunVistUrlmMapper);
-	}
-	
-	/**   
+	/**
 	 * @Title: insertHByAuth   
 	 * @Description: 插入历史通过权限
 	 * @param funid
@@ -89,8 +80,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: insertPowers</p>   
 	 * <p>Description: </p>   
 	 * @param dtos   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#insertPowers(List)
-	 */  
+	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
 	public void insertPowersUrl(List<SyChanmgfunVistUrlmAddDTO> dtos,String userId,String seqno) {
@@ -118,8 +108,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Description: </p>   
 	 * @param funid
 	 * @return   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#queryFunVist(String)
-	 */  
+	 */
 	@Override
 	public List<SyChanmgfunVistUrlmQryDTO> queryFunVist(String funid) {
 		List<SyChanmgfunVistUrlm> urlm = this.syChanmgfunVistUrlmMapper.queryFunVist(funid);
@@ -139,7 +128,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 		 if(!CollectionUtils.isEmpty(urls)) {
 			 Map datas = 
 					 urls.parallelStream().collect(Collectors.groupingBy(SyChanmgfunExcludeUrl::getType));
-			 this.redisExtCommands.hmset(AuthConstant.AUTH_DICT_KEY, datas);
+//			 this.redisExtCommands.hmset(AuthConstant.AUTH_DICT_KEY, datas);
 		 }
 		 return vos;
 	}
@@ -159,28 +148,27 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: setVistUrlPower</p>   
 	 * <p>Description: </p>   
 	 * @param userid   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#setVistUrlPower(String)
-	 */  
+	 */
 	@Override
 	public void setVistUrlPower(String userid) {
-		//检查路径与权限问题
+		/*//检查路径与权限问题
 		String cacheKey = AuthConstant.USER_VIST_URL_CACHEKEY;
 		List<SyChanmgfunVistUrlm> vistUrls = this.redisExtCommands.hgetList(cacheKey, userid, SyChanmgfunVistUrlm.class);
 		if(CollectionUtils.isEmpty(vistUrls)) {
 			//不存在的时候设置权限
 			setVistUrlPowerNow(userid);
-		}
+		}*/
 	   
 	}
 	
 	@Override
 	public void setVistUrlPowerNow(String userId){
-		String cacheKey = AuthConstant.USER_VIST_URL_CACHEKEY;
+//		String cacheKey = AuthConstant.USER_VIST_URL_CACHEKEY;
 		List<SyChanmgfunVistUrlm> urlms = this.syChanmgfunVistUrlmMapper.getUserUrlPower(userId);
 		Map params = urlms.parallelStream().collect(Collectors.toMap((k)->{
 			return userId.concat("-").concat(k.getUrl());
 		},v->v,(oldValue,newValue)->oldValue));
-		this.redisExtCommands.hmset(cacheKey, params);
+//		this.redisExtCommands.hmset(cacheKey, params);
 	
 	}
 	/**   
@@ -204,8 +192,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: setUserVistPowerByRolesAsync</p>   
 	 * <p>Description: </p>   
 	 * @param roles   
-	 * @see com.petecat.interchan.sso.sysfun.service.ISyChanmgfunVistUrlService#setUserVistPowerByRolesAsync(List)
-	 */  
+	 */
 	@Async
 	@Override
 	public void setUserVistPowerByRolesAsync(List<SysRole> roles) {
@@ -227,7 +214,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * @param userId
 	 * @param delete
 	 * @param reqNo   
-	 * @see com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#deleteByFunsIds(List, String, String, String)
+	 * @see com.spring.demo.springbootexample.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#deleteByFunsIds(List, String, String, String)
 	 */ 
 	@Transactional(propagation=Propagation.REQUIRED)
 	@Override
@@ -246,7 +233,7 @@ extends BaseServiceImpl<SyChanmgfunVistUrlm, String> implements ISyChanmgfunVist
 	 * <p>Title: reloadVistUrl</p>   
 	 * <p>Description: </p>   
 	 * @param userId   
-	 * @see com.petecat.interchan.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#reloadVistUrl(String)
+	 * @see com.spring.demo.springbootexample.sso.sysfunvisturl.service.ISyChanmgfunVistUrlService#reloadVistUrl(String)
 	 */  
 	@Override
 	public void reloadVistUrl(String userId) {

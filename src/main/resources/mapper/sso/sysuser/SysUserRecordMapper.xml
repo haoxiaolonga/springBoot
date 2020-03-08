@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.demo.springbootexample.sso.sysuser.mapper.SysUserRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.spring.demo.springbootexample.sso.sysuser.entity.SysUserRecord" >
+    <constructor >
+       <idArg column="USERID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <idArg column="SEQNO" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="USERNAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PASSWORD" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CHGPWDFLAG" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="VALIDDAY" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="WARNINGDAY" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="EMAIL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TEL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MOBILEPHONE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ENTRANTDATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="AVAILABLE" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_USER"  jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_TIME"  jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="OPERATE_STATUS"  jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USERID,SEQNO, USERNAME, PASSWORD, CHGPWDFLAG, VALIDDAY, WARNINGDAY, EMAIL, TEL, MOBILEPHONE, 
+    ADDRESS, ENTRANTDATE, AVAILABLE, OPERATE_USER, OPERATE_TIME,OPERATE_STATUS
+  </sql>
+  <insert id="insertInto" parameterType="com.spring.demo.springbootexample.protocol.InsertInto">
+  	insert into sys_user_record(
+  		 <include refid="Base_Column_List" />
+  	) select USERID, #{reqNo}, USERNAME,  PASSWORD, CHGPWDFLAG, VALIDDAY, WARNINGDAY, EMAIL, TEL, MOBILEPHONE, 
+    ADDRESS, ENTRANTDATE, AVAILABLE, OPERATE_USER, OPERATE_TIME, #{status} from sys_user
+    where USERID = #{id}
+  </insert>
+</mapper>

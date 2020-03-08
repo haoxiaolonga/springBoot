@@ -1,13 +1,13 @@
 package com.spring.demo.springbootexample.sso.sysuserrole.service;
 
-import java.util.List;
+import com.spring.demo.springbootexample.base.BaseService;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleDTO;
+import com.spring.demo.springbootexample.sso.sysuserrole.entity.SysUserRole;
 
-import com.petecat.interchan.core.service.BaseService;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserFunDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleAddDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleDTO;
-import com.petecat.interchan.sso.sysuserrole.entity.SysUserRole;
+import java.util.List;
 
 
 /**   
@@ -16,7 +16,7 @@ import com.petecat.interchan.sso.sysuserrole.entity.SysUserRole;
  * @author: admin
  * @date:   2017年7月21日 下午8:13:48   
  */  
-public interface ISysUserRoleService extends BaseService<SysUserRole, String>{
+public interface ISysUserRoleService extends BaseService<SysUserRole, String> {
 
 	/**   
 	 * @Title: saveUserRole   

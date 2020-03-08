@@ -1,35 +1,24 @@
-/**  
- * All rights Reserved, Designed By http://www.pete-cat.com/
- * @Title:  SysFunController.java   
- * @Package com.petecat.interchan.sso.sysuserfun   
- * @Description:系统功能
- * @author: 成都皮特猫科技     
- * @date:2017年7月20日 下午6:48:48   
- * @version V1.0 
- * @Copyright: 2017 www.pete-cat.com Inc. All rights reserved. 
- * 注意：本内容仅限于成都皮特猫信息技术有限公司内部传阅，禁止外泄以及用于其他的商业目
- */  
 package com.spring.demo.springbootexample.sso.sysfun.controller;
 
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.constans.Global;
-import com.petecat.interchan.core.controller.BaseController;
-import com.petecat.interchan.protocol.GlobalHeader;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunAddDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunModDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunPageQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunTreeQueryDTO;
-import com.petecat.interchan.protocol.sso.sysfun.SysFunVO;
-import com.petecat.interchan.sso.sysfun.service.ISysFunService;
+import com.spring.demo.springbootexample.base.BaseController;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.Global;
+import com.spring.demo.springbootexample.common.GlobalHeader;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunModDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunPageQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunTreeQueryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfun.SysFunVO;
+import com.spring.demo.springbootexample.sso.sysfun.service.ISysFunService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,12 +33,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
-/**   
- * @ClassName:  SysFunController   
- * @Description:系统功能权限  
- * @author: admin
- * @date:   2017年7月20日 下午6:48:48   
- */
+
 @RestController
 @Api(value="系统功能权限管理",tags="功能权限")
 @RequestMapping("/sy/sysfun")
@@ -95,7 +79,7 @@ public class SysFunController extends BaseController {
 			@ModelAttribute SysFunTreeQueryDTO queryTree,
 			@ApiIgnore @RequestHeader(name = Global.GLOBAL_HEADER,required = false) String header){
 		this.getUserInfo(header, true);
-		if(StringUtils.isNotBlank(queryTree.getNodeid())){
+		if(!StringUtils.isEmpty(queryTree.getNodeid())){
 		 queryTree.setParentid(queryTree.getNodeid());
 		}else{
 			queryTree.setParentid(queryTree.getParentid());

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.demo.springbootexample.sso.sysuserrole.mapper.SysUserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.spring.demo.springbootexample.sso.sysuserrole.entity.SysUserRole" >
+    <constructor >
+      <idArg column="ROLEID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <idArg column="USERID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="OPERATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="OPERATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLEID, USERID, OPERATE_TIME, OPERATE_USER
+  </sql>
+  
+ <select id="queryUserRole" resultType="com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleDTO" parameterType="string" >
+    select b.ROLEID,b.ROLEDESC,b.MARKFLAG
+    from sys_user_role a inner join sys_role b on a.ROLEID=b.ROLEID
+    where a.userid = #{userid,jdbcType=VARCHAR}
+ </select>
+  
+ <select id="queryUserRoleCheck" resultType="com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleCheckDTO" parameterType="string" >
+    select * from (
+    select b.ROLEID,b.ROLEDESC,b.MARKFLAG,case when exists(
+       select 1 from sys_user_role k where k.ROLEID=b.ROLEID 
+       and k.USERID= #{userid,jdbcType=VARCHAR} ) then 1 else 0 end  checked
+    from  sys_role b
+    where b.markflag='0'
+    ) k order by k.checked desc,k.ROLEID asc
+ </select>
+  
+ <select id="queryUserFun" resultType="com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserFunDTO" parameterType="string" >
+    select   distinct d.FUNID,d.ORDERVAL,d.LAYID,d.FUNDESC,d.FUNPATH,d.PARENTID,
+    d.BOTFLAG,d.USEFLAG,d.DISPLAYFUN,e.FUNDESC parentName
+    from sys_user_role a inner join sys_role b on a.ROLEID=b.ROLEID
+    inner join  sys_role_fun c  on a.ROLEID=c.ROLEID
+    inner join sys_fun d on d.FUNID=c.FUNID
+    left outer join sys_fun e on d.PARENTID=e.FUNID
+    where a.userid = #{userid,jdbcType=VARCHAR}
+    and b.markflag='0'
+    order by d.ORDERVAL asc
+ </select>
+  
+  
+  
+  <delete id="deleteByUserId" parameterType="string" >
+    delete from sys_user_role
+    where  USERID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="addUserRole" parameterType="com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleBatchDTO" >
+    insert into sys_user_role (ROLEID, USERID, OPERATE_TIME,OPERATE_USER)
+    values
+    <foreach collection="roleids" item="roleid" separator=",">
+        (#{roleid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, 
+        #{operateUser,jdbcType=VARCHAR})
+    </foreach>
+  
+  </insert>
+  
+ <insert id="insertInto" parameterType="com.spring.demo.springbootexample.protocol.InsertInto" >
+    insert into sys_user_role_record(
+        ROLEID,
+        USERID,
+        OPERATE_USER,
+        OPERATE_TIME,
+        OPERATE_STATUS,
+        SEQNO
+        )
+        select 
+        ROLEID,
+        USERID,
+        #{userId},
+        <choose>
+          <when test="opDate != null">#{opDate,jdbcType=TIMESTAMP}</when>
+          <otherwise>OPERATE_TIME</otherwise>
+        </choose>
+         ,
+        #{status},
+        #{reqNo}
+        from sys_user_role where userid=#{id}        
+  </insert>
+  
+  
+ <insert id="insertIntoByRoleId" parameterType="com.spring.demo.springbootexample.protocol.InsertInto" >
+    insert into sys_user_role_record(
+        ROLEID,
+        USERID,
+        OPERATE_USER,
+        OPERATE_TIME,
+        OPERATE_STATUS,
+        SEQNO
+        )
+        select 
+        ROLEID,
+        USERID,
+        #{userId},
+        <choose>
+          <when test="opDate != null">#{opDate,jdbcType=TIMESTAMP}</when>
+          <otherwise>OPERATE_TIME</otherwise>
+        </choose>
+         ,
+        #{status},
+        #{reqNo}
+        from sys_user_role where roleid=#{id}        
+  </insert>
+  
+  <delete id="deleteByRoleId" parameterType="string" >
+    delete from sys_user_role
+    where  ROLEID = #{roleid,jdbcType=VARCHAR}
+  </delete>
+	
+  
+</mapper>

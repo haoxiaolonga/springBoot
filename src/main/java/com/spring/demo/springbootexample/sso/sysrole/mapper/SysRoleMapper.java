@@ -1,14 +1,13 @@
 package com.spring.demo.springbootexample.sso.sysrole.mapper;
 
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseMapper;
+import com.spring.demo.springbootexample.protocol.Page;
+import com.spring.demo.springbootexample.sso.sysrole.domain.SysRolePageQueryDO;
+import com.spring.demo.springbootexample.sso.sysrole.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.petecat.interchan.core.mapper.BaseMapper;
-import com.petecat.interchan.protocol.data.Page;
-import com.petecat.interchan.sso.sysrole.domain.SysRolePageQueryDO;
-import com.petecat.interchan.sso.sysrole.entity.SysRole;
+import java.util.List;
 
 /**
  * 

@@ -1,8 +1,32 @@
 package com.spring.demo.springbootexample.sso.sysuser.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.spring.demo.springbootexample.base.BaseController;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.Global;
+import com.spring.demo.springbootexample.common.GlobalHeader;
+import com.spring.demo.springbootexample.protocol.PageVO;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.UserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.LoginSysUserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.LoginSysUserVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserUpdateDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.SysUserVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageQryDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.ResetPwdDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdateCenterPwdDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdatePwdDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.request.SysUserPageQryQVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.response.SysUserPageQryRVO;
+import com.spring.demo.springbootexample.protocol.sso.sysuser.response.SysUserRVO;
+import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
+import com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,55 +37,21 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.constans.Global;
-import com.petecat.interchan.core.controller.BaseController;
-import com.petecat.interchan.jwt.Token;
-import com.petecat.interchan.protocol.GlobalHeader;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.data.PageVO;
-import com.petecat.interchan.protocol.sso.UserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.LoginSysUserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.LoginSysUserVO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserAddDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserUpdateDTO;
-import com.petecat.interchan.protocol.sso.sysuser.SysUserVO;
-import com.petecat.interchan.protocol.sso.sysuser.dto.SysUserPageDTO;
-import com.petecat.interchan.protocol.sso.sysuser.dto.SysUserPageQryDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.ResetPwdDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.UpdateCenterPwdDTO;
-import com.petecat.interchan.protocol.sso.sysuser.pwd.UpdatePwdDTO;
-import com.petecat.interchan.protocol.sso.sysuser.request.SysUserPageQryQVO;
-import com.petecat.interchan.protocol.sso.sysuser.response.SysUserPageQryRVO;
-import com.petecat.interchan.protocol.sso.sysuser.response.SysUserRVO;
-import com.petecat.interchan.sso.sysuser.entity.SysUser;
-import com.petecat.interchan.sso.sysuser.service.ISysUserService;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;
 
-/**
- * 
- * @ClassName:  SysUserController   
- * @Description:系统用户管理  
- * @author: mhuang
- * @date:   2017年7月13日 下午3:39:48
- */
+import java.util.Arrays;
+import java.util.List;
+
 @RestController("sy/sysuser")
 @RequestMapping("sy/sysuser")
 @Api(value = "系统用户管理",tags = {"权限"})
-public class SysUserController extends BaseController{
+public class SysUserController extends BaseController {
 
 	@Autowired
 	private ISysUserService sysUserService;
 
-	@Autowired
-	private Token token;
+//	@Autowired
+//	private Token token;
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/queryUserByPage")
@@ -73,8 +63,8 @@ public class SysUserController extends BaseController{
         @ApiImplicitParam(paramType="query",name = "start", value = "页数", required = true,dataType = "Integer")
         })
 	public Result<PageVO<SysUserVO>> queryUserByPage(@RequestParam(required = false) String username,
-			@RequestParam(required = false) String mobilephone,@RequestParam("start") Integer start,
-			@RequestParam("rows") Integer rows){
+													 @RequestParam(required = false) String mobilephone, @RequestParam("start") Integer start,
+													 @RequestParam("rows") Integer rows){
 		SysUserDTO sysUserDTO = new SysUserDTO();
 		//组装对象
 		packPageSysUserDTO(username, mobilephone, start, rows, sysUserDTO);
@@ -192,8 +182,8 @@ public class SysUserController extends BaseController{
 	public Result loginUsePwd(@RequestParam String mobilephone,@RequestParam String password){
 		LoginSysUserDTO userDto = this.sysUserService.loginUsePwd(mobilephone,password);
 		LoginSysUserVO userVo = DataUtils.copyTo(userDto, LoginSysUserVO.class);
-		String tokenStr = token.create(userDto.getUserid(), "sysuser");
-		userVo.setToken(tokenStr);
+//		String tokenStr = token.create(userDto.getUserid(), "sysuser");
+//		userVo.setToken(tokenStr);
 		return Result.ok(userVo);
 	}
 	

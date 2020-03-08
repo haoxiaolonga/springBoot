@@ -7,7 +7,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@MapperScan("com.spring.demo.springbootexample.mybatis.mapper")
+@MapperScan("com.spring.demo.springbootexample")
 public class SpringBootExampleApplication {
 
     public static void main(String[] args) {

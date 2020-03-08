@@ -5,13 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.petecat.interchan.core.mapper.BaseMapper;
-import com.petecat.interchan.protocol.InsertInto;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserFunDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleBatchDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
-import com.petecat.interchan.protocol.sso.sysuserrole.SysUserRoleDTO;
-import com.petecat.interchan.sso.sysuserrole.entity.SysUserRole;
+import com.spring.demo.springbootexample.base.BaseMapper;
+import com.spring.demo.springbootexample.protocol.InsertInto;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleBatchDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleCheckDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysuserrole.SysUserRoleDTO;
+import com.spring.demo.springbootexample.sso.sysuserrole.entity.SysUserRole;
 
 /**
  * 

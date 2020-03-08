@@ -1,35 +1,33 @@
-/**  
- * All rights Reserved, Designed By http://www.pete-cat.com/
- * @Title:  SysRoleFunController.java   
- * @Package com.petecat.interchan.sso.sysuserroleFun   
- * @Description:系统角色功能
- * @author: 成都皮特猫科技     
- * @date:2017年7月20日 下午6:48:48   
- * @version V1.0 
- * @Copyright: 2017 www.pete-cat.com Inc. All rights reserved. 
- * 注意：本内容仅限于成都皮特猫信息技术有限公司内部传阅，禁止外泄以及用于其他的商业目
- */  
 package com.spring.demo.springbootexample.sso.sysrolefun.controller;
 
-import com.mhuang.common.util.DataUtils;
-import com.petecat.interchan.core.constans.Global;
-import com.petecat.interchan.core.controller.BaseController;
-import com.petecat.interchan.protocol.GlobalHeader;
-import com.petecat.interchan.protocol.Result;
-import com.petecat.interchan.protocol.sso.sysfunrole.*;
-import com.petecat.interchan.sso.sysrolefun.service.ISysRoleFunService;
+import com.spring.demo.springbootexample.base.BaseController;
+import com.spring.demo.springbootexample.common.DataUtils;
+import com.spring.demo.springbootexample.common.Global;
+import com.spring.demo.springbootexample.common.GlobalHeader;
+import com.spring.demo.springbootexample.protocol.Result;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunTreeDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunTreeVO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunVO;
+import com.spring.demo.springbootexample.sso.sysrolefun.service.ISysRoleFunService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 /**   
  * @ClassName:  SysRoleFunController   
@@ -51,7 +49,7 @@ public class SysRoleFunController extends BaseController {
 		@ApiImplicitParam(name = "sysRoleFunAddDTO", value = "角色功能对象,多个funid用逗号隔开", required = true, paramType = "body", dataType = "SysRoleFunAddDTO"),
 	})
 	public Result setRoleFun(@RequestBody SysRoleFunAddDTO sysRoleFunAddDTO,
-			@ApiIgnore @RequestHeader(name = Global.GLOBAL_HEADER,required = false) String header){
+							 @ApiIgnore @RequestHeader(name = Global.GLOBAL_HEADER,required = false) String header){
 		GlobalHeader globalHeader = this.getUserInfo(header, true);
 		sysRoleFunService.saveRoleFun(sysRoleFunAddDTO,globalHeader.getUserId());
 		return Result.ok();
@@ -145,9 +143,9 @@ public class SysRoleFunController extends BaseController {
 			@ApiIgnore @RequestHeader(name = Global.GLOBAL_HEADER,required = false) String header){
 		this.getUserInfo(header, true);
 		List<SysRoleFunDTO> dtos = this.sysRoleFunService.queryRoleFun(roleid);
-		List<SysRoleFunVO> roleFunVos = DataUtils.copyTo(dtos, SysRoleFunVO.class).parallelStream().
-				filter(t->"1".equals(t.getUseflag())).collect(Collectors.toList());
-		return (Result<List<SysRoleFunVO>>) Result.ok(roleFunVos);
+//		List<SysRoleFunVO> roleFunVos = DataUtils.copyTo(dtos, SysRoleFunVO.class).parallelStream().
+//				filter(t->"1".equals(t.getUseflag())).collect(Collectors.toList());
+		return (Result<List<SysRoleFunVO>>) Result.ok(null);
 	}
 	
 }

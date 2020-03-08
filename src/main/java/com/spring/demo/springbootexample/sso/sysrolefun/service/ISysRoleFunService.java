@@ -1,12 +1,12 @@
 package com.spring.demo.springbootexample.sso.sysrolefun.service;
 
-import java.util.List;
+import com.spring.demo.springbootexample.base.BaseService;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunAddDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunDTO;
+import com.spring.demo.springbootexample.protocol.sso.sysfunrole.SysRoleFunTreeDTO;
+import com.spring.demo.springbootexample.sso.sysrolefun.entity.SysRoleFun;
 
-import com.petecat.interchan.core.service.BaseService;
-import com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunAddDTO;
-import com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunDTO;
-import com.petecat.interchan.protocol.sso.sysfunrole.SysRoleFunTreeDTO;
-import com.petecat.interchan.sso.sysrolefun.entity.SysRoleFun;
+import java.util.List;
 
 
 /**   
@@ -15,7 +15,7 @@ import com.petecat.interchan.sso.sysrolefun.entity.SysRoleFun;
  * @author: admin
  * @date:   2017年7月21日 下午8:13:48   
  */  
-public interface ISysRoleFunService extends BaseService<SysRoleFun, String>{
+public interface ISysRoleFunService extends BaseService<SysRoleFun, String> {
 
 	/**   
 	 * @Title: saveRoleFun   
