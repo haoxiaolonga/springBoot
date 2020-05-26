@@ -109,6 +109,20 @@
     </dependencies>
 
     <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**.*</include>
+                    <include>**/*.*</include><!-- i18n能读取到 -->
+                    <include>**/*/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+
+
         <plugins>
             <!-- 将Spring Boot应用打包为可执行的jar或war文件 -->
             <plugin>
@@ -134,5 +148,37 @@
         </plugins>
     </build>
 
+
+    <!-- 打包的不同profile -->
+    <profiles>
+        <!-- 开发人员profile -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+                <SSO_URL>http://127.0.0.1:8080/</SSO_URL>
+                <DICT_URL>http://127.0.0.1:8080/</DICT_URL>
+                <FILE_URL>http://127.0.0.1:8080/</FILE_URL>
+                <FILE_VIEW_URL>http://127.0.0.1:8080/</FILE_VIEW_URL>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 生产环境profile -->
+        <profile>
+            <id>product</id>
+            <properties>
+                <env>product</env>
+            </properties>
+        </profile>
+        <!-- 测试环境环境profile -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

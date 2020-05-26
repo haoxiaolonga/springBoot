@@ -364,7 +364,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		}
 		if(user == null){
 			this.setSyuserRedisMobileToUser(mobilephone, null);
-			throw new BusinessException(Result.SYS_RESULT_FAILD,this.environment.getProperty("sysuser_mobile_or_pwd_error"));
+			throw new BusinessException(Result.SYS_RESULT_FAILD,"密码错误");
 		}else{
 			if(setRedis){
 				this.setSyuserRedisMobileToUser(mobilephone, user.getUserid());
@@ -372,7 +372,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 			}
 			if(!realPwd.equals(user.getPassword())){
 	    		throw new BusinessException(Result.SYS_RESULT_FAILD,
-						environment.getProperty("sysuser_mobile_or_pwd_error"));
+						environment.getProperty("账号或密码错误"));
 	    	}
 			this.checkSysuser(user);
 			dto = DataUtils.copyTo(user, LoginSysUserDTO.class);

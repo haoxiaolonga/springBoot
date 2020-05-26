@@ -1,42 +1,5 @@
 var SUCCESS_CODE = 200,
-	TOKEN_EXPIRED = 401,
-	FILE_MIDDLE_TOKEN="973090604418084864",
-	//测试环境
-//	API_URL = "http://api。cdhryx.com/",
-//	SSO_URL = "http://sso.cdhryx.com/",
-//	PT_URL = "http://plateform.cdhryx.com/",
-//	DICT_URL = "http://global-config.cdhryx.com/",
-//	MSGCENTER_URL = "http://msg-center.cdhryx.com/",
-//	FILE_URL = "https://api-attachment.cdhryx.com/attach",
-//	STORE_URL = "http://store.cdhryx.com/";
-//	PRICERULE_URL = "http://price-rule.cdhryx.com/";
-//	CUSTINFO_URL = "http://cust-information.cdhryx.com/";
-//	DYNAMIC_URL = "http://cust-dynamic.cdhryx.com/";
-//  REFRESH_CONFIG_URL = 'http://operator.properties.cdhryx.com/monitor/bus/refresh';
-//	UPLOAD_FILE_URL=FILE_URL+"/save";
-//	UPLOAD_FILE_ALLOWED_TYPES="jpg,png";
-//	FILE_VIEW_URL="https://view-attachment.cdhryx.com/";
-    //开发
-	API_URL = "@API_URL@",
-	SSO_URL = "@SSO_URL@",
-	PT_URL = "@PT_URL@",
-	DICT_URL = "@DICT_URL@",
-	MSGCENTER_URL = "@MSGCENTER_URL@",
-	FILE_URL = "@FILE_URL@",
-	ASSESSMENT_URL = "http://127.0.0.1:8080/",
-	PUBMANAGE_URL  = "http://127.0.0.1:8083/";
-	COMMISSION_URL = "http://127.0.0.1:8082/";
-	STORE_URL = "@STORE_URL@";
-	PRICERULE_URL = "@PRICERULE_URL@";
-	CUSTINFO_URL = "@CUSTINFO_URL@";
-	DYNAMIC_URL = "@DYNAMIC_URL@";
-    REFRESH_CONFIG_URL = '@REFRESH_CONFIG_URL@';
-    DEVICE_API_URL = '@DEVICE_API_URL@';
-	BUSINESS_URL = "http://127.0.0.1:8081/";
-	UPLOAD_FILE_URL=FILE_URL+"/save";
-	QCODE_FILE_URL=FILE_URL+"/saveRestFile";
-	UPLOAD_FILE_ALLOWED_TYPES="jpg,png";
-	FILE_VIEW_URL="@FILE_VIEW_URL@";
+	SSO_URL = "@SSO_URL@";
 /**
  * 获取session用户
  * @returns object
@@ -214,6 +177,9 @@ function ajaxRequest(req){
         ajaxConfig['contentType'] = req['contentType'];
 	}
 	ajaxConfig['error'] = function(data){
+
+		debugger;
+
 		var error = $.parseJSON(data.responseText);
 		if(typeof error  == undefined){
 			layer.msg('系统异常！',{icon:5});
