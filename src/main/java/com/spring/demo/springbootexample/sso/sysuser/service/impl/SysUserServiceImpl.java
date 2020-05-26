@@ -21,6 +21,7 @@ import com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageQry
 import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.ResetPwdDTO;
 import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdateCenterPwdDTO;
 import com.spring.demo.springbootexample.protocol.sso.sysuser.pwd.UpdatePwdDTO;
+import com.spring.demo.springbootexample.redis.RedisUtil;
 import com.spring.demo.springbootexample.sso.sysuser.domain.SysUserDO;
 import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
 import com.spring.demo.springbootexample.sso.sysuser.mapper.SysUserMapper;
@@ -31,6 +32,7 @@ import com.spring.demo.springbootexample.sso.util.MD5;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -40,28 +42,36 @@ import java.util.Date;
 import java.util.List;
 
 @Service("sysUserService")
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> implements ISysUserService{
-	
+public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> implements ISysUserService, InitializingBean {
+
 	private SysUserMapper sysUserMapper;
-	
+
 	@Autowired
 	private SysUserRecordMapper sysUserRecordMapper;
-	
+
 	@Autowired
 	private IRedisExtCommands redisExtCommands;
-	
+
+	@Autowired
+	private RedisUtil redisUtil;
+
+	@Override
+	public void afterPropertiesSet(){
+		redisUtil.set("test122","测试22数据");
+	}
+
 	private final static String SYUSER_REDIS_MOBILE_TOUSERID_PREKEY="syur_moblie_uid_";
-	
+
 	private final static String SYUSER_REDIS_USERID_TO_USER_PREKEY="syur_user_uid_";
 
 	private final static Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
-	
+
 	@Autowired
 	private Environment environment;
 
 	@Value("${sysuser_pwd_enc_key}")
 	private String encryptKey;
-	
+
 	@Autowired
 	public void setSysUserMapper(SysUserMapper sysUserMapper) {
 		this.sysUserMapper = sysUserMapper;
@@ -78,7 +88,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		result.setResult(DataUtils.copyTo(sysUserList,SysUserVO.class));
 		return result;
 	}
-	
+
 	/*
 	 * 组装分页查询对象
 	 */
@@ -111,15 +121,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 					sysUserAddDTO.getPassword()), 32));
 		} catch (Exception e) {
 			logger.error("新增用户加密密码失败", e);
-			throw new  BusinessException(Result.SYS_RESULT_FAILD, 
+			throw new  BusinessException(Result.SYS_RESULT_FAILD,
 					this.environment.getProperty("sysuser_pwd_error"));
 		}
-		
+
 		int count =  save(sysUser);
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		InsertInto<String> insertInto = new InsertInto<>();
 		insertInto.setId(sysUser.getUserid());
 		insertInto.setReqNo(new IdWorker().nextId()+"");
@@ -128,11 +138,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		this.setSyuserRedisMobileToUser(sysUserAddDTO.getMobilephone(), sysUser.getUserid());
 		this.setSyuserRedisUserIdToUser(sysUser.getUserid(), sysUser);
 	}
-	
+
 	@Override
 	public void updateUser(SysUserUpdateDTO sysUserUpdateDTO) {
 		SysUser sysUser = this.getSyuserRedisUserId(sysUserUpdateDTO.getUserid());
@@ -151,16 +161,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 						sysUserUpdateDTO.getPassword()), 32));
 			} catch (Exception e) {
 				logger.error("修改用户加密密码失败", e);
-				throw new  BusinessException(Result.SYS_RESULT_FAILD, 
+				throw new  BusinessException(Result.SYS_RESULT_FAILD,
 						this.environment.getProperty("sysuser_pwd_error"));
 			}
 		}
-		
+
 		int count =  update(sysUser);
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		InsertInto<String> insertInto = new InsertInto<>();
 		insertInto.setId(sysUser.getUserid());
 		insertInto.setReqNo(new IdWorker().nextId()+"");
@@ -169,12 +179,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		sysUser = sysUserMapper.getById(sysUserUpdateDTO.getUserid());
 		this.setSyuserRedisMobileToUser(sysUser.getMobilephone(), sysUser.getUserid());
 		this.setSyuserRedisUserIdToUser(sysUser.getUserid(), sysUser);
 	}
-	
+
 	@Override
 	public void updatePwd(UpdatePwdDTO updatePwdDTO) {
 		SysUser sysUser = this.getSyuserRedisUserId(updatePwdDTO.getUserid());
@@ -193,15 +203,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 					updatePwdDTO.getPassword()), 32));
 		} catch (Exception e) {
 			logger.error("修改用户加密密码失败", e);
-			throw new  BusinessException(Result.SYS_RESULT_FAILD, 
+			throw new  BusinessException(Result.SYS_RESULT_FAILD,
 					this.environment.getProperty("sysuser_pwd_error"));
 		}
-		
+
 		int count =  update(sysUser);
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		InsertInto<String> insertInto = new InsertInto<>();
 		insertInto.setId(sysUser.getUserid());
 		insertInto.setReqNo(new IdWorker().nextId()+"");
@@ -210,11 +220,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		sysUser = sysUserMapper.getById(updatePwdDTO.getUserid());
 		this.setSyuserRedisUserIdToUser(sysUser.getUserid(), sysUser);
 	}
-	
+
 	@Override
 	public void updateLoginPwd(UpdateCenterPwdDTO updatePwdDTO) {
 		SysUser sysUser = this.getSyuserRedisUserId(updatePwdDTO.getUserid());
@@ -225,21 +235,21 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
     					environment.getProperty("chan_mobile_repeat"));
     		}
 		}
-    	
+
     	//判断旧密码
 		try {
 			String oldPasswd = MD5.GetMD5Code(AES.encrypt(encryptKey,
 					updatePwdDTO.getOldPassword()), 32);
 			if(!StringUtils.equals(oldPasswd, sysUser.getPassword())){
-				throw new  BusinessException(Result.SYS_RESULT_FAILD, 
+				throw new  BusinessException(Result.SYS_RESULT_FAILD,
 						this.environment.getProperty("sysuser_pwd_error"));
 			}
 		}catch (Exception e) {
 			logger.error("旧密码失败", e);
-			throw new  BusinessException(Result.SYS_RESULT_FAILD, 
+			throw new  BusinessException(Result.SYS_RESULT_FAILD,
 					this.environment.getProperty("sysuser_pwd_error"));
 		}
-		
+
 		sysUser = DataUtils.copyTo(updatePwdDTO, SysUser.class);
 		sysUser.setOperateTime(new Date());
 		sysUser.setOperateUser(updatePwdDTO.getUserid());
@@ -248,15 +258,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 					updatePwdDTO.getPassword()), 32));
 		} catch (Exception e) {
 			logger.error("修改用户加密密码失败", e);
-			throw new  BusinessException(Result.SYS_RESULT_FAILD, 
+			throw new  BusinessException(Result.SYS_RESULT_FAILD,
 					this.environment.getProperty("sysuser_pwd_error"));
 		}
-		
+
 		int count =  update(sysUser);
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		InsertInto<String> insertInto = new InsertInto<>();
 		insertInto.setId(sysUser.getUserid());
 		insertInto.setReqNo(new IdWorker().nextId()+"");
@@ -265,7 +275,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		sysUser = sysUserMapper.getById(updatePwdDTO.getUserid());
 		this.setSyuserRedisUserIdToUser(sysUser.getUserid(), sysUser);
 	}
@@ -286,15 +296,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 					resetPwdDTO.getPassword()), 32));
 		} catch (Exception e) {
 			logger.error("修改用户加密密码失败", e);
-			throw new  BusinessException(Result.SYS_RESULT_FAILD, 
+			throw new  BusinessException(Result.SYS_RESULT_FAILD,
 					this.environment.getProperty("sysuser_pwd_error"));
 		}
-		
+
 		int count =  update(sysUser);
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		InsertInto<String> insertInto = new InsertInto<>();
 		insertInto.setId(sysUser.getUserid());
 		insertInto.setReqNo(new IdWorker().nextId()+"");
@@ -303,11 +313,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		sysUser = sysUserMapper.getById(resetPwdDTO.getUserid());
 		this.setSyuserRedisUserIdToUser(sysUser.getUserid(), sysUser);
 	}
-	
+
 	@Override
 	public void lockUser(UserDTO lockUserDTO) {
 		SysUser sysUser = this.getSyuserRedisUserId(lockUserDTO.getUserid());
@@ -320,12 +330,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		}
 		sysUser = DataUtils.copyTo(lockUserDTO, SysUser.class);
 		sysUser.setOperateTime(new Date());
-		
+
 		int count =  sysUserMapper.lock(sysUser);
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		InsertInto<String> insertInto = new InsertInto<>();
 		insertInto.setId(sysUser.getUserid());
 		insertInto.setReqNo(new IdWorker().nextId()+"");
@@ -334,17 +344,17 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		if(count  == 0){
 			throw new BusinessException(Result.SYS_FAILD, Result.FAILD_MSG);
 		}
-		
+
 		sysUser = sysUserMapper.getById(lockUserDTO.getUserid());
 		this.setSyuserRedisUserIdToUser(sysUser.getUserid(), sysUser);
 	}
-	/**   
-	 * <p>Title: loginUsePwd</p>   
-	 * <p>Description: </p>   
+	/**
+	 * <p>Title: loginUsePwd</p>
+	 * <p>Description: </p>
 	 * @param mobilephone
 	 * @param password
 	 * @see com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService#loginUsePwd(String, String)
-	 */  
+	 */
 	@Override
 	public LoginSysUserDTO loginUsePwd(String mobilephone, String password) {
 		SysUser user = this.getCacheUserByMobileToLogin(mobilephone,"");
@@ -380,11 +390,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		return dto;
 	}
 
-	/**   
-	 * @Title: checkSysuser   
-	 * @Description: 检查当前用户是否过期  
+	/**
+	 * @Title: checkSysuser
+	 * @Description: 检查当前用户是否过期
 	 * @param user
-	 * @return void     
+	 * @return void
 	 */
 	private void checkSysuser(SysUser user) {
 		if("0".equals(user.getAvailable())){
@@ -395,12 +405,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 			throw new BusinessException(Result.SYS_RESULT_FAILD,
 					this.environment.getProperty("sysuser_is_lock"));
 		}
-		
+
 	}
-			
-	/**   
-	 * @Title: getCacheUserByMobileToLogin   
-	 * @Description: 
+
+	/**
+	 * @Title: getCacheUserByMobileToLogin
+	 * @Description:
 	 * @param mobilephone
 	 * @return SysUser
 	 */
@@ -419,11 +429,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		return sysuser;
 	}
 
-	/**   
-	 * @Title: loadSysUserFromCache   
+	/**
+	 * @Title: loadSysUserFromCache
 	 * @Description: 加载用户从缓存中
 	 * @param userId
-	 * @return SysUser     
+	 * @return SysUser
 	 */
 	private SysUser loadSysUserFromCache(String userId) {
 		SysUser  sysuser = null;
@@ -436,11 +446,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		return sysuser;
 	}
 
-	/**   
-	 * @Title: getUserIdByMobileFromCache   
+	/**
+	 * @Title: getUserIdByMobileFromCache
 	 * @Description:手机号换用户ID
 	 * @param mobilephone
-	 * @return String     
+	 * @return String
 	 */
 	private String getUserIdByMobileFromCache(String mobilephone) {
 		try {
@@ -451,7 +461,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		return null;
 	}
 
-	/**  
+	/**
 	 * @Title:  getSyuserRedisMobileToUserIdKey
 	 * @Description:获取SYUSER_REDIS_MOBILE_TOUSERID_KEY的值
 	 * @return: String
@@ -460,7 +470,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		return SYUSER_REDIS_MOBILE_TOUSERID_PREKEY+mobilephone;
 	}
 
-	/**  
+	/**
 	 * @Title:  getSyuserRedisUseridToUserPrekey
 	 * @Description:获取SYUSER_REDIS_USERID_TO_USER_PREKEY的值
 	 * @return: String
@@ -468,38 +478,38 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	public  String getSyuserRedisUserIdToUserKey(String userId) {
 		return SYUSER_REDIS_USERID_TO_USER_PREKEY+userId;
 	}
-	
-	/**  
+
+	/**
 	 * @Title:  setSyuserRedisMobileToUser
 	 * @Description:设置手机号到用户ID的缓存
 	 * @return: String
 	 */
 	public  boolean setSyuserRedisMobileToUser(String mobilephone,String userId) {
 		try {
-			return redisExtCommands.hset(SYUSER_REDIS_MOBILE_TOUSERID_PREKEY, 
+			return redisExtCommands.hset(SYUSER_REDIS_MOBILE_TOUSERID_PREKEY,
 					mobilephone, userId, Global.EXPIRE_THIRTY_DAYS);
 		} catch (Exception e) {
 			logger.error("setSyuserRedisMobileToUser 设置缓存信息失败,手机号为：{}",mobilephone,e);
 			return false;
 		}
-		
+
 	}
 
-	/**  
+	/**
 	 * @Title:  setSyuserRedisUserIdToUser
 	 * @Description:设置用户ID到用户缓存
 	 * @return: String
 	 */
 	public  boolean setSyuserRedisUserIdToUser(String userId,SysUser user) {
 		try {
-			return redisExtCommands.hset(SYUSER_REDIS_USERID_TO_USER_PREKEY, 
+			return redisExtCommands.hset(SYUSER_REDIS_USERID_TO_USER_PREKEY,
 					userId,user,Global.EXPIRE_THIRTY_DAYS);
 		} catch (Exception e) {
 			logger.error("setSyuserRedisUserIdToUser 设置缓存信息失败,用户ID为：{}",userId,e);
 			return false;
 		}
 	}
-	
+
 	private SysUser getSyuserRedisUserId(String userId){
 		try {
 			return redisExtCommands.hget(SYUSER_REDIS_USERID_TO_USER_PREKEY, userId, SysUser.class);
@@ -509,33 +519,33 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 		}
 	}
 
-	/**   
-	 * <p>Title: pageForOrder</p>   
-	 * <p>Description: </p>   
+	/**
+	 * <p>Title: pageForOrder</p>
+	 * <p>Description: </p>
 	 * @param sysUserDTO
-	 * @return   
+	 * @return
 	 * @see com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService#pageForOrder(com.spring.demo.springbootexample.protocol.sso.sysuser.dto.SysUserPageQryDTO)
-	 */  
+	 */
 	@Override
 	public List<SysUserPageDTO> pageForOrder(SysUserPageQryDTO sysUserDTO) {
 		Page<SysUserDO> pageUser = DataUtils.copyTo(sysUserDTO,Page.class);
-		SysUserDO userDo = DataUtils.copyTo(sysUserDTO, SysUserDO.class); 
+		SysUserDO userDo = DataUtils.copyTo(sysUserDTO, SysUserDO.class);
 		pageUser.setRecord(userDo);
 		pageUser.setStart(pageUser.getStart()-1);
 		List<SysUser> datas = this.sysUserMapper.pageForOrder(pageUser);
 		return DataUtils.copyTo(datas, SysUserPageDTO.class);
 	}
 
-	/**   
-	 * <p>Title: findByUserIds</p>   
-	 * <p>Description: </p>   
+	/**
+	 * <p>Title: findByUserIds</p>
+	 * <p>Description: </p>
 	 * @param userIds
-	 * @return   
+	 * @return
 	 * @see com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService#findByUserIds(List)
-	 */  
+	 */
 	@Override
 	public List<SysUser> findByUserIds(List<String> userIds) {
 		return this.sysUserMapper.findByUserIds(userIds);
 	}
-	
+
 }
