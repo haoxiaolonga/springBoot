@@ -42,7 +42,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service("sysUserService")
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> implements ISysUserService, InitializingBean {
+public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> implements ISysUserService {
 
 	private SysUserMapper sysUserMapper;
 
@@ -54,11 +54,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 
 	@Autowired
 	private RedisUtil redisUtil;
-
-	@Override
-	public void afterPropertiesSet(){
-		redisUtil.set("test122","测试22数据");
-	}
 
 	private final static String SYUSER_REDIS_MOBILE_TOUSERID_PREKEY="syur_moblie_uid_";
 
