@@ -32,7 +32,6 @@ import com.spring.demo.springbootexample.sso.util.MD5;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -449,7 +448,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, String> impleme
 	 */
 	private String getUserIdByMobileFromCache(String mobilephone) {
 		try {
-			return redisExtCommands.hget(SYUSER_REDIS_MOBILE_TOUSERID_PREKEY, mobilephone);
+			return String.valueOf(redisUtil.hget(SYUSER_REDIS_MOBILE_TOUSERID_PREKEY, mobilephone));
 		} catch (Exception e) {
 			logger.error("getUserIdByMobileFromCache 获取用户缓存信息失败,手机号为：{}",mobilephone,e);
 		}

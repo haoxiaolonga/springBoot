@@ -23,6 +23,7 @@ import com.spring.demo.springbootexample.protocol.sso.sysuser.response.SysUserPa
 import com.spring.demo.springbootexample.protocol.sso.sysuser.response.SysUserRVO;
 import com.spring.demo.springbootexample.sso.sysuser.entity.SysUser;
 import com.spring.demo.springbootexample.sso.sysuser.service.ISysUserService;
+import com.spring.demo.springbootexample.token.JwtToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -50,8 +51,8 @@ public class SysUserController extends BaseController {
 	@Autowired
 	private ISysUserService sysUserService;
 
-//	@Autowired
-//	private Token token;
+	@Autowired
+	private JwtToken token; 
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/queryUserByPage")

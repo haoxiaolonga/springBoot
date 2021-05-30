@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**   
  * @ClassName:  SysUserRoleController   
@@ -109,11 +110,10 @@ public class SysUserRoleController extends BaseController {
 			@ApiIgnore @RequestHeader(name = Global.GLOBAL_HEADER,required = false) String headerStr){
 		GlobalHeader header = this.getUserInfo(headerStr, true);
 		List<SysUserFunDTO> dtos = this.sysUserRoleService.queryUserFun(header.getUserId());
-//		List<SysUserFunVO> roleFunVos = DataUtils.copyTo(dtos, SysUserFunVO.class).parallelStream().
-//				filter(t->"1".equals(t.getUseflag())).collect(Collectors.toList());
+		List<SysUserFunVO> roleFunVos = DataUtils.copyTo(dtos, SysUserFunVO.class).parallelStream().
+				filter(t->"1".equals(t.getUseflag())).collect(Collectors.toList());
 		this.syChanmgfunVistUrlService.setVistUrlPowerNow(header.getUserId());
 		this.sysUserRoleService.setUserRoleToCache(header.getUserId());
-//		return (Result<List<SysUserFunVO>>) Result.ok(roleFunVos);
-		return null;
+		return (Result<List<SysUserFunVO>>) Result.ok(roleFunVos);
 	}
 }
